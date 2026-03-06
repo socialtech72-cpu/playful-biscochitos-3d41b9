@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewsMunch Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Open Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;display:flex;min-height:100vh;}
+input,textarea,select,button{font-family:inherit;}
+::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-thumb{background:#1a56db;border-radius:3px;}
+@keyframes slideIn{from{transform:translateX(-20px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastIn{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.slide-in{animation:slideIn 0.3s ease;}
+
+#sidebar{width:240px;background:#0f172a;min-height:100vh;position:fixed;left:0;top:0;z-index:100;display:flex;flex-direction:column;transition:width 0.3s;overflow:hidden;}
+#sidebar.collapsed{width:64px;}
+.sb-header{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;}
+.sb-logo{color:#fff;font-weight:800;font-size:16px;}
+.sb-logo span{color:#1a56db;}
+.sb-sub{color:#7777bb;font-size:10px;margin-top:2px;}
+.sb-toggle{background:rgba(255,255,255,0.1);border:none;color:#fff;width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:13px;flex-shrink:0;}
+.sb-nav{flex:1;padding:10px 0;}
+.sb-item{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;transition:all 0.2s;border-left:3px solid transparent;color:#94a3b8;}
+.sb-item:hover,.sb-item.active{background:rgba(26,86,219,0.15);border-left-color:#1a56db;color:#fff;}
+.sb-icon{font-size:17px;flex-shrink:0;}
+.sb-label{font-weight:600;font-size:13px;white-space:nowrap;}
+.sb-footer{padding:14px;border-top:1px solid rgba(255,255,255,0.08);}
+.news-link{display:block;background:#1a56db;color:#fff;text-align:center;padding:10px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity 0.2s;}
+.news-link:hover{opacity:0.85;}
+
+#main{margin-left:240px;flex:1;transition:margin-left 0.3s;}
+#main.collapsed{margin-left:64px;}
+.topbar{background:#fff;border-bottom:1px solid #e0e0e0;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.topbar-title{font-weight:800;font-size:18px;color:#0f172a;}
+.new-btn{background:#1a56db;border:none;color:#fff;padding:9px 18px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;transition:all 0.2s;}
+.new-btn:hover{background:#1644b0;transform:translateY(-1px);}
+.content{padding:24px;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px;}
+.stat-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,0.06);border-top:3px solid #1a56db;}
+.stat-val{font-size:32px;font-weight:800;margin-top:8px;}
+.stat-lbl{font-size:13px;color:#666;margin-top:3px;}
+
+.panel{background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,0.06);margin-bottom:18px;}
+.panel-title{font-weight:800;font-size:15px;margin-bottom:18px;color:#0f172a;padding-bottom:12px;border-bottom:2px solid #f0f0f0;}
+
+table{width:100%;border-collapse:collapse;min-width:650px;}
+th{padding:11px 14px;text-align:left;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;background:#f8f9ff;letter-spacing:0.5px;}
+td{padding:10px 14px;border-top:1px solid #f5f5f5;font-size:13px;}
+tr:hover td{background:#f8f9ff;}
+
+.form-label{display:block;font-weight:700;font-size:12px;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.form-input{width:100%;padding:11px 14px;border-radius:8px;border:1.5px solid #e0e0e0;font-size:14px;outline:none;font-family:inherit;transition:border 0.2s;background:#fafafa;}
+.form-input:focus{border-color:#1a56db;background:#fff;}
+.form-textarea{width:100%;padding:11px 14px;border-radius:8px;border:1.5px solid #e0e0e0;font-size:14px;outline:none;resize:vertical;font-family:inherit;line-height:1.6;background:#fafafa;}
+.form-textarea:focus{border-color:#1a56db;background:#fff;}
+.form-group{margin-bottom:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+
+.btn-primary{background:#1a56db;border:none;color:#fff;padding:13px;border-radius:10px;cursor:pointer;font-weight:700;font-size:15px;transition:all 0.2s;width:100%;}
+.btn-primary:hover{background:#1644b0;transform:translateY(-1px);}
+.btn-sec{background:#f0f2f5;border:none;color:#555;padding:13px 20px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all 0.2s;}
+.btn-edit{background:#1a56db;border:none;color:#fff;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;}
+.btn-del{background:#ef4444;border:none;color:#fff;padding:5px 9px;border-radius:6px;cursor:pointer;font-size:12px;}
+
+.badge-break{background:#fee2e2;color:#dc2626;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;}
+.badge-trend{background:#fff7ed;color:#ea580c;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;}
+.badge-pub{background:#f0fdf4;color:#16a34a;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;}
+.badge-cat{background:#eff6ff;color:#1a56db;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;}
+
+.right-panel{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,0.06);margin-bottom:14px;}
+.rp-title{font-weight:800;font-size:13px;margin-bottom:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px;}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.cat-opt{padding:7px;border-radius:7px;border:1.5px solid #e0e0e0;background:#fff;color:#555;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;text-align:center;}
+.cat-opt.active{border-color:#1a56db;background:#eff6ff;color:#1a56db;}
+.status-row{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;border-radius:8px;margin-bottom:6px;transition:background 0.2s;}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;display:none;align-items:center;justify-content:center;}
+.overlay.show{display:flex;}
+.confirm-box{background:#fff;border-radius:14px;padding:30px;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+
+#toast{position:fixed;bottom:24px;right:24px;padding:13px 20px;border-radius:10px;font-weight:700;font-size:14px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.3);animation:toastIn 0.3s ease;display:none;}
+
+.two-col{display:grid;grid-template-columns:1fr 300px;gap:18px;}
+.two-col-eq{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.cswatch{width:24px;height:24px;border-radius:6px;cursor:pointer;border:2px solid #e0e0e0;transition:transform 0.15s;display:inline-block;}
+.cswatch:hover{transform:scale(1.2);}
+.cswatch.active{border:3px solid #fff;box-shadow:0 0 0 2px #1a56db;}
+
+@media(max-width:900px){.two-col{grid-template-columns:1fr!important;}.two-col-eq{grid-template-columns:1fr!important;}}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="sb-header">
+    <div id="sb-logo-wrap">
+      <div class="sb-logo">News<span>Munch</span></div>
+      <div class="sb-sub">Admin Panel CMS</div>
+    </div>
+    <button class="sb-toggle" onclick="toggleSidebar()">◀</button>
+  </div>
+  <nav class="sb-nav" id="sb-nav"></nav>
+  <div class="sb-footer" id="sb-footer">
+    <a class="news-link" href="news.html" target="_blank">🌐 News Page Dekho</a>
+  </div>
+</div>
+
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">📊 Dashboard</div>
+    <button class="new-btn" onclick="goAdd()">✏️ New Article</button>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+<div class="overlay" id="del-overlay">
+  <div class="confirm-box">
+    <div style="font-size:44px;margin-bottom:14px">🗑️</div>
+    <h3 style="font-weight:800;margin-bottom:10px;">Delete karna chahte hain?</h3>
+    <p style="color:#666;margin-bottom:22px;font-size:14px;">Yeh article permanently delete ho jaayega.</p>
+    <div style="display:flex;gap:10px;">
+      <button onclick="closeDelOverlay()" style="flex:1;background:#f0f2f5;border:none;border-radius:8px;padding:11px;cursor:pointer;font-weight:700;font-family:inherit;">Cancel</button>
+      <button onclick="confirmDelete()" style="flex:1;background:#ef4444;border:none;color:#fff;border-radius:8px;padding:11px;cursor:pointer;font-weight:700;font-family:inherit;">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const DEFAULT_ARTICLES=[
+  {id:1,title:"The Landscape of Cryptocurrency Trends in 2025",category:"Business",category2:"Technology",summary:"Cryptocurrency market is seeing major shifts in 2025. Bitcoin has crossed new highs.",image:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",time:"January 27, 2025",source:"Admin",views:"2.4M",trending:true,breaking:true},
+  {id:2,title:"The Power of Wind Energy and Renewable Future",category:"Technology",category2:"Economy",summary:"Wind energy is rapidly becoming one of the most cost-effective sources of electricity.",image:"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"1.8M",trending:true,breaking:false},
+  {id:3,title:"Golden Gate's Timeless Majesty and Architecture",category:"Economy",category2:"Western",summary:"The Golden Gate Bridge continues to inspire millions of visitors every year.",image:"https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"890K",trending:false,breaking:false},
+];
+const DEFAULT_SETTINGS={siteName:"NewsMunch",tagline:"Leading The Way",primaryColor:"#1a56db",bgColor:"#f1f1f1",textColor:"#222",headerBg:"#1a56db",fontSize:"14",coverImage:"",showTicker:true,adBannerText:""};
+const CATEGORIES=["India","World","Business","Sports","Technology","Entertainment","Science","Health","Economy","Western"];
+const SIDEBAR_ITEMS=[{key:"dashboard",icon:"📊",label:"Dashboard"},{key:"articles",icon:"📰",label:"Articles"},{key:"add",icon:"✏️",label:"Add Article"},{key:"design",icon:"🎨",label:"Design & Theme"},{key:"media",icon:"🖼️",label:"Media Library"},{key:"ads",icon:"📢",label:"Ads Setup"},{key:"notifications",icon:"🔔",label:"Notifications"},{key:"settings",icon:"⚙️",label:"Site Settings"}];
+
+let activeTab="dashboard",sidebarOpen=true,editingId=null,deleteId=null,form={},mediaImages=[];
+
+function loadArticles(){try{const s=localStorage.getItem("bharatnews_articles");if(s)return JSON.parse(s);}catch{}return DEFAULT_ARTICLES;}
+function loadSettings(){try{const s=localStorage.getItem("bharatnews_settings");if(s)return JSON.parse(s);}catch{}return{...DEFAULT_SETTINGS};}
+function saveArticles(a){try{localStorage.setItem("bharatnews_articles",JSON.stringify(a));}catch{}}
+function saveSettings(s){try{localStorage.setItem("bharatnews_settings",JSON.stringify(s));}catch{}}
+
+function showToast(msg,type="success"){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background=type==="error"?"#ef4444":"#16a34a";t.style.display="block";
+  setTimeout(()=>t.style.display="none",3000);
+}
+function persistA(a){saveArticles(a);showToast("✅ News page turant update ho gayi!");}
+function persistS(s){saveSettings(s);showToast("✅ Settings save ho gayi!");}
+
+function toggleSidebar(){
+  sidebarOpen=!sidebarOpen;
+  document.getElementById('sidebar').classList.toggle('collapsed',!sidebarOpen);
+  document.getElementById('main').classList.toggle('collapsed',!sidebarOpen);
+  document.getElementById('sb-logo-wrap').style.display=sidebarOpen?'block':'none';
+  document.getElementById('sb-footer').style.display=sidebarOpen?'block':'none';
+  document.querySelector('.sb-toggle').textContent=sidebarOpen?'◀':'▶';
+}
+
+function buildSidebar(){
+  document.getElementById('sb-nav').innerHTML=SIDEBAR_ITEMS.map(i=>`
+    <div class="sb-item ${activeTab===i.key?'active':''}" onclick="setTab('${i.key}')">
+      <span class="sb-icon">${i.icon}</span><span class="sb-label">${i.label}</span>
+    </div>`).join('');
+}
+
+function setTab(tab){
+  activeTab=tab;editingId=null;form={};
+  buildSidebar();
+  const item=SIDEBAR_ITEMS.find(i=>i.key===tab);
+  document.getElementById('topbar-title').textContent=item.icon+' '+item.label;
+  renderContent();
+}
+function goAdd(){setTab('add');}
+
+function renderContent(){
+  const c=document.getElementById('content');
+  if(activeTab==="dashboard")c.innerHTML=renderDashboard();
+  else if(activeTab==="articles")c.innerHTML=renderArticles();
+  else if(activeTab==="add")c.innerHTML=renderAdd();
+  else if(activeTab==="design")c.innerHTML=renderDesign();
+  else if(activeTab==="media")c.innerHTML=renderMedia();
+  else if(activeTab==="ads")c.innerHTML=renderAds();
+  else if(activeTab==="notifications")c.innerHTML=renderNotifications();
+  else if(activeTab==="settings")c.innerHTML=renderSettings();
+}
+
+function renderDashboard(){
+  const arts=loadArticles();
+  const stats=[{label:"Total Articles",val:arts.length,icon:"📰",color:"#1a56db"},{label:"Breaking News",val:arts.filter(a=>a.breaking).length,icon:"🔴",color:"#dc2626"},{label:"Trending",val:arts.filter(a=>a.trending).length,icon:"🔥",color:"#ea580c"},{label:"Categories",val:new Set(arts.map(a=>a.category)).size,icon:"📁",color:"#16a34a"}];
+  return`<div class="slide-in">
+    <div class="stat-grid">${stats.map(s=>`<div class="stat-card" style="border-top-color:${s.color}"><div style="font-size:26px">${s.icon}</div><div class="stat-val" style="color:${s.color}">${s.val}</div><div class="stat-lbl">${s.label}</div></div>`).join('')}</div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:18px;">
+      <div class="panel">
+        <div class="panel-title">🕒 Recent Articles</div>
+        ${arts.slice(0,6).map(a=>`<div style="display:flex;gap:10px;align-items:center;padding:10px 6px;border-bottom:1px solid #f5f5f5;">
+          <img src="${a.image}" style="width:50px;height:38px;object-fit:cover;border-radius:5px;">
+          <div style="flex:1;min-width:0;"><div style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${a.title}</div><div style="font-size:11px;color:#888;margin-top:1px;">${a.category} • ${a.time}</div></div>
+          <button class="btn-edit" onclick="startEdit(${a.id})">Edit</button>
+        </div>`).join('')}
+      </div>
+      <div class="panel">
+        <div class="panel-title">⚡ Quick Actions</div>
+        ${[{l:"New Breaking News",i:"🔴",f:"goBreaking()"},{l:"Change Cover",i:"🖼️",f:"setTab('design')"},{l:"Edit Theme",i:"🎨",f:"setTab('design')"},{l:"Manage Ads",i:"📢",f:"setTab('ads')"},{l:"Send Notification",i:"🔔",f:"setTab('notifications')"}].map(q=>`
+          <button onclick="${q.f}" style="display:flex;align-items:center;gap:10px;width:100%;background:#f8f9ff;border:1px solid #e8e8ff;border-radius:8px;padding:11px 14px;cursor:pointer;margin-bottom:7px;font-weight:600;font-size:13px;color:#0f172a;font-family:inherit;">
+            <span style="font-size:17px">${q.i}</span>${q.l}
+          </button>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderArticles(){
+  const arts=loadArticles();
+  return`<div class="slide-in">
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <div style="padding:14px 22px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-weight:700;font-size:15px;">${arts.length} Articles</span>
+        <button class="btn-edit" onclick="goAdd()" style="padding:7px 16px;border-radius:8px;font-size:13px;">+ Add New</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Status</th><th>Views</th><th>Actions</th></tr></thead>
+          <tbody>${arts.map(a=>`<tr>
+            <td><img src="${a.image}" style="width:58px;height:42px;object-fit:cover;border-radius:5px;"></td>
+            <td style="max-width:240px;"><div style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${a.title}</div><div style="font-size:11px;color:#aaa;margin-top:1px;">${a.source||'Admin'} • ${a.time}</div></td>
+            <td><span class="badge-cat">${a.category}</span>${a.category2?` <span class="badge-cat">${a.category2}</span>`:''}</td>
+            <td>${a.breaking?'<span class="badge-break">🔴 BREAKING</span> ':''} ${a.trending?'<span class="badge-trend">🔥 TRENDING</span>':''} ${!a.breaking&&!a.trending?'<span class="badge-pub">✓ Live</span>':''}</td>
+            <td style="color:#666;font-weight:600;">${a.views||'0'}</td>
+            <td><div style="display:flex;gap:5px;"><button class="btn-edit" onclick="startEdit(${a.id})">✏️</button><button class="btn-del" onclick="askDelete(${a.id})">🗑️</button></div></td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderAdd(){
+  return`<div class="slide-in">
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">${editingId?'✏️ Article Edit':'➕ Naya Article Publish Karo'}</div>
+        <div class="form-group"><label class="form-label">📰 Headline / Title *</label><textarea class="form-textarea" id="f-title" rows="2" placeholder="Catchy headline likhein...">${form.title||''}</textarea></div>
+        <div class="form-group"><label class="form-label">📝 Summary / Description *</label><textarea class="form-textarea" id="f-summary" rows="5" placeholder="Poori khabar likhein...">${form.summary||''}</textarea></div>
+        <div class="form-row">
+          <div><label class="form-label">📡 Source / Author</label><input class="form-input" id="f-source" value="${form.source||''}" placeholder="Admin, Desert..."></div>
+          <div><label class="form-label">👁 Views</label><input class="form-input" id="f-views" value="${form.views||''}" placeholder="1.2M"></div>
+        </div>
+        <div class="form-row">
+          <div><label class="form-label">📁 Category 1</label>
+            <select class="form-input" id="f-category">${CATEGORIES.map(c=>`<option value="${c}" ${form.category===c?'selected':''}>${c}</option>`).join('')}</select>
+          </div>
+          <div><label class="form-label">📁 Category 2 (Optional)</label>
+            <select class="form-input" id="f-category2"><option value="">None</option>${CATEGORIES.map(c=>`<option value="${c}" ${form.category2===c?'selected':''}>${c}</option>`).join('')}</select>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:6px;">
+          <button class="btn-primary" onclick="saveArticle()">${editingId?'💾 Update':'🚀 Publish Karo'}</button>
+          <button class="btn-sec" onclick="setTab('articles')">Cancel</button>
+        </div>
+      </div>
+      <div>
+        <div class="right-panel">
+          <div class="rp-title">🏷️ Status</div>
+          <label class="status-row" style="background:${form.breaking?'#fee2e2':'#f8f9ff'};border:1px solid ${form.breaking?'#dc2626':'#e0e0e0'};">
+            <input type="checkbox" id="f-breaking" ${form.breaking?'checked':''} style="width:16px;height:16px;accent-color:#dc2626;">
+            <span style="font-weight:700;font-size:13px;color:${form.breaking?'#dc2626':'#555'}">🔴 Breaking News</span>
+          </label>
+          <label class="status-row" style="background:${form.trending?'#fff7ed':'#f8f9ff'};border:1px solid ${form.trending?'#ea580c':'#e0e0e0'};">
+            <input type="checkbox" id="f-trending" ${form.trending?'checked':''} style="width:16px;height:16px;accent-color:#ea580c;">
+            <span style="font-weight:700;font-size:13px;color:${form.trending?'#ea580c':'#555'}">🔥 Trending</span>
+          </label>
+        </div>
+        <div class="right-panel">
+          <div class="rp-title">🖼️ Article Image</div>
+          <img id="img-preview" src="${form.image||''}" style="${form.image?'display:block':'display:none'};width:100%;height:130px;object-fit:cover;border-radius:8px;margin-bottom:10px;">
+          <input class="form-input" id="f-image" placeholder="Image URL..." value="${form.image||''}" oninput="prevImg(this.value)" style="margin-bottom:8px;">
+          <button onclick="document.getElementById('img-file').click()" style="width:100%;background:#1a56db;border:none;color:#fff;padding:9px;border-radius:8px;cursor:pointer;font-weight:700;font-size:12px;font-family:inherit;">📤 Upload Image</button>
+          <input type="file" id="img-file" accept="image/*" onchange="handleImg(event)" style="display:none">
+        </div>
+        <div class="right-panel">
+          <div class="rp-title">📅 Publish Date</div>
+          <input class="form-input" id="f-time" value="${form.time||new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}" placeholder="January 27, 2025">
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderDesign(){
+  const s=loadSettings();
+  const sw=["#1a56db","#cc0000","#0a0a0a","#16a34a","#7e3af2","#ea580c","#0694a2","#d61f69"];
+  const cfs=[{k:"primaryColor",l:"Primary / Nav Color",i:"🔵"},{k:"headerBg",l:"Header Background",i:"🔝"},{k:"bgColor",l:"Page Background",i:"🖼️"},{k:"textColor",l:"Text Color",i:"🔡"}];
+  return`<div class="slide-in">
+    <div class="two-col-eq">
+      <div class="panel">
+        <div class="panel-title">🎨 Colors</div>
+        ${cfs.map(cf=>`<div style="margin-bottom:18px;">
+          <label class="form-label">${cf.i} ${cf.l}</label>
+          <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+            <input type="color" value="${s[cf.k]||'#1a56db'}" oninput="updateS('${cf.k}',this.value)" style="width:46px;height:40px;border:none;border-radius:7px;cursor:pointer;padding:2px;">
+            <input class="form-input" value="${s[cf.k]||''}" oninput="updateS('${cf.k}',this.value)" style="flex:1;">
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;">${sw.map(c=>`<div class="cswatch ${s[cf.k]===c?'active':''}" style="background:${c}" onclick="updateS('${cf.k}','${c}');renderContent()"></div>`).join('')}</div>
+        </div>`).join('')}
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-title">📝 Site Identity</div>
+          <div class="form-group"><label class="form-label">Site Name</label><input class="form-input" value="${s.siteName||''}" oninput="updateS('siteName',this.value)" placeholder="NewsMunch"></div>
+          <div class="form-group"><label class="form-label">Tagline</label><input class="form-input" value="${s.tagline||''}" oninput="updateS('tagline',this.value)" placeholder="Leading The Way"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">🔡 Font Size</div>
+          <label class="form-label">Size: ${s.fontSize||14}px</label>
+          <input type="range" min="12" max="18" value="${s.fontSize||14}" oninput="updateS('fontSize',this.value);renderContent()" style="width:100%;accent-color:#1a56db;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#aaa;margin-top:4px;"><span>12px</span><span>18px</span></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">⚙️ Features</div>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:8px;background:#f8f9ff;cursor:pointer;">
+            <span style="font-weight:600;font-size:14px;">📺 Breaking News Ticker</span>
+            <input type="checkbox" ${s.showTicker!==false?'checked':''} onchange="updateS('showTicker',this.checked)" style="width:17px;height:17px;accent-color:#1a56db;">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderMedia(){
+  const arts=loadArticles();
+  const all=[...arts.map(a=>({url:a.image,name:a.title.slice(0,22),date:a.time})),...mediaImages];
+  return`<div class="slide-in">
+    <div class="panel" style="margin-bottom:18px;">
+      <div style="border:2px dashed #93c5fd;border-radius:10px;padding:36px 20px;text-align:center;cursor:pointer;background:#eff6ff;" onclick="document.getElementById('mf').click()">
+        <div style="font-size:44px;margin-bottom:10px">📁</div>
+        <h3 style="color:#1a56db;margin-bottom:6px">Images Upload Karein</h3>
+        <p style="color:#888;font-size:14px">Click karein ya drag & drop karein</p>
+        <input type="file" id="mf" accept="image/*" multiple onchange="handleMedia(event)" style="display:none">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;">
+      ${all.map(img=>`<div style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+        <img src="${img.url}" style="width:100%;height:105px;object-fit:cover;">
+        <div style="padding:8px 10px;"><div style="font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${img.name}</div><div style="font-size:10px;color:#aaa;margin-top:2px;">${img.date}</div></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderAds(){
+  const s=loadSettings();
+  const adf=[{l:"Header Banner (728x90)",k:"adBannerText",p:"📢 728 × 90 Leaderboard"},{l:"Sidebar Box (300x250)",k:"adSidebar",p:"📦 300 × 250 Box"},{l:"Mobile Banner (320x50)",k:"adMobile",p:"📱 320 × 50 Mobile"},{l:"Footer (728x90)",k:"adFooter",p:"⬇️ 728 × 90 Footer"}];
+  return`<div class="slide-in"><div class="two-col-eq">
+    ${adf.map(ad=>`<div class="panel">
+      <div class="panel-title">📢 ${ad.l}</div>
+      <div style="background:#f0f2f5;border-radius:7px;padding:20px;text-align:center;margin-bottom:13px;border:1px dashed #ccc;color:#999;font-size:13px;">${ad.p}</div>
+      <label class="form-label">Ad Code / Label</label>
+      <input class="form-input" value="${s[ad.k]||''}" placeholder="Google AdSense code..." oninput="updateS('${ad.k}',this.value)">
+    </div>`).join('')}
+  </div></div>`;
+}
+
+function renderNotifications(){
+  return`<div class="slide-in" style="max-width:560px;">
+    <div class="panel">
+      <div class="panel-title">🔔 Push Notification Bhejo</div>
+      <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="nt" placeholder="Breaking: Kuch important..."></div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" id="nm" rows="3" placeholder="Khabar ki detail..."></textarea></div>
+      <div class="form-group"><label class="form-label">Audience</label><select class="form-input"><option>All Users</option><option>Sports Subscribers</option><option>India News</option><option>Breaking Only</option></select></div>
+      <button class="btn-primary" onclick="showToast('🔔 Notification bheja gaya! (Demo)')">🚀 Send Notification</button>
+    </div>
+  </div>`;
+}
+
+function renderSettings(){
+  const s=loadSettings();
+  return`<div class="slide-in" style="max-width:540px;">
+    <div class="panel">
+      <div class="panel-title">⚙️ Site Settings</div>
+      <div class="form-group"><label class="form-label">🏷️ Site Name</label><input class="form-input" value="${s.siteName||''}" oninput="updateS('siteName',this.value)"></div>
+      <div class="form-group"><label class="form-label">💬 Tagline</label><input class="form-input" value="${s.tagline||''}" oninput="updateS('tagline',this.value)"></div>
+      <div style="margin-top:20px;padding:14px;background:#fffbeb;border-radius:8px;border:1px solid #fcd34d;">
+        <div style="font-weight:700;color:#b45309;margin-bottom:6px;">⚡ Real-time Sync Active</div>
+        <div style="font-size:13px;color:#666;">Koi bhi change karein — News Page turant update hoti hai dono pages localStorage se connected hain.</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ACTIONS
+function startEdit(id){const a=loadArticles().find(x=>x.id===id);if(!a)return;editingId=id;form={...a};setTab('add');}
+function goBreaking(){form={breaking:true,category:"India"};setTab('add');}
+function prevImg(url){const p=document.getElementById('img-preview');if(url){p.src=url;p.style.display='block';}else p.style.display='none';form.image=url;}
+function handleImg(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{form.image=ev.target.result;const p=document.getElementById('img-preview');if(p){p.src=ev.target.result;p.style.display='block';}const fi=document.getElementById('f-image');if(fi)fi.value=ev.target.result;showToast("📸 Image upload ho gayi!");};r.readAsDataURL(f);}
+function handleMedia(e){Array.from(e.target.files).forEach(f=>{const r=new FileReader();r.onload=ev=>mediaImages.push({url:ev.target.result,name:f.name,date:new Date().toLocaleDateString()});r.readAsDataURL(f);});setTimeout(()=>{renderContent();showToast("📸 Images upload ho gayi!");},500);}
+
+function saveArticle(){
+  const title=document.getElementById('f-title')?.value||'';
+  const summary=document.getElementById('f-summary')?.value||'';
+  if(!title||!summary){showToast("❌ Title aur summary zaroori hai!","error");return;}
+  const newForm={
+    ...form,title,summary,
+    source:document.getElementById('f-source')?.value||form.source||'Admin',
+    views:document.getElementById('f-views')?.value||form.views||'0',
+    category:document.getElementById('f-category')?.value||form.category||'India',
+    category2:document.getElementById('f-category2')?.value||form.category2||'',
+    time:document.getElementById('f-time')?.value||form.time||new Date().toLocaleDateString(),
+    image:document.getElementById('f-image')?.value||form.image||'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80',
+    breaking:document.getElementById('f-breaking')?.checked||false,
+    trending:document.getElementById('f-trending')?.checked||false,
+  };
+  let arts=loadArticles();
+  if(editingId)arts=arts.map(a=>a.id===editingId?{...newForm,id:editingId}:a);
+  else arts=[{...newForm,id:Date.now()},... arts];
+  persistA(arts);editingId=null;form={};setTab('articles');
+}
+
+function askDelete(id){deleteId=id;document.getElementById('del-overlay').classList.add('show');}
+function closeDelOverlay(){document.getElementById('del-overlay').classList.remove('show');deleteId=null;}
+function confirmDelete(){if(!deleteId)return;const arts=loadArticles().filter(a=>a.id!==deleteId);persistA(arts);closeDelOverlay();showToast("🗑️ Delete ho gaya");renderContent();}
+function updateS(k,v){const s=loadSettings();s[k]=(v==="true")?true:(v==="false")?false:v;persistS(s);}
+
+buildSidebar();renderContent();
+</script>
+</body>
+</html>

@@ -3,758 +3,438 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NewsMunch - Leading The Way</title>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
-
-<!-- ================================================ -->
-<!-- GOOGLE ADSENSE - Apna Publisher ID yahan daalo   -->
-<!-- ca-pub-9215124873928983 ki jagah apna ID paste karo    -->
-<!-- ================================================ -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9215124873928983" crossorigin="anonymous"></script>
+<title>NewsMunch Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Open Sans',sans-serif;background:#f1f1f1;color:#222;font-size:14px;}
-a{text-decoration:none;color:inherit;}
-img{max-width:100%;display:block;}
+body{font-family:'Open Sans',sans-serif;background:#f0f2f5;color:#1a1a2e;display:flex;min-height:100vh;}
+input,textarea,select,button{font-family:inherit;}
 ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-thumb{background:#1a56db;border-radius:3px;}
+@keyframes slideIn{from{transform:translateX(-20px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastIn{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.slide-in{animation:slideIn 0.3s ease;}
 
-/* TICKER */
-.ticker-bar{background:#111;color:#fff;display:flex;align-items:center;height:36px;overflow:hidden;}
-.ticker-fire{background:#ff4500;color:#fff;padding:0 14px;height:100%;display:flex;align-items:center;gap:6px;font-weight:700;font-size:12px;white-space:nowrap;flex-shrink:0;}
-.ticker-scroll{overflow:hidden;flex:1;display:flex;align-items:center;}
-.ticker-text{white-space:nowrap;display:inline-block;animation:tickerMove 35s linear infinite;font-size:13px;padding-left:20px;}
-@keyframes tickerMove{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
-.ticker-right{display:flex;align-items:center;gap:16px;padding:0 16px;font-size:12px;white-space:nowrap;flex-shrink:0;color:#ccc;}
-.ticker-time{background:#1a56db;color:#fff;padding:3px 10px;border-radius:3px;font-weight:700;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+#sidebar{width:240px;background:#0f172a;min-height:100vh;position:fixed;left:0;top:0;z-index:100;display:flex;flex-direction:column;transition:width 0.3s;overflow:hidden;}
+#sidebar.collapsed{width:64px;}
+.sb-header{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;}
+.sb-logo{color:#fff;font-weight:800;font-size:16px;}
+.sb-logo span{color:#1a56db;}
+.sb-sub{color:#7777bb;font-size:10px;margin-top:2px;}
+.sb-toggle{background:rgba(255,255,255,0.1);border:none;color:#fff;width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:13px;flex-shrink:0;}
+.sb-nav{flex:1;padding:10px 0;}
+.sb-item{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;transition:all 0.2s;border-left:3px solid transparent;color:#94a3b8;}
+.sb-item:hover,.sb-item.active{background:rgba(26,86,219,0.15);border-left-color:#1a56db;color:#fff;}
+.sb-icon{font-size:17px;flex-shrink:0;}
+.sb-label{font-weight:600;font-size:13px;white-space:nowrap;}
+.sb-footer{padding:14px;border-top:1px solid rgba(255,255,255,0.08);}
+.news-link{display:block;background:#1a56db;color:#fff;text-align:center;padding:10px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity 0.2s;}
+.news-link:hover{opacity:0.85;}
 
-/* HEADER */
-.header{background:#fff;padding:12px 0;border-bottom:1px solid #e0e0e0;}
-.header-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
-.logo{display:flex;align-items:center;gap:10px;}
-.logo-icon{background:#1a56db;color:#fff;width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;position:relative;}
-.logo-dots{position:absolute;top:4px;right:4px;display:grid;grid-template-columns:1fr 1fr;gap:2px;}
-.logo-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.7);}
-.logo-text{font-size:26px;font-weight:800;color:#111;letter-spacing:-0.5px;}
-.header-ad{background:linear-gradient(135deg,#1a56db,#0e3a8a);border-radius:6px;padding:10px 20px;display:flex;align-items:center;gap:12px;color:#fff;flex:1;max-width:540px;}
-.header-ad-icon{background:rgba(255,255,255,0.2);padding:6px 10px;border-radius:4px;font-size:11px;font-weight:700;writing-mode:vertical-rl;letter-spacing:2px;}
-.header-ad-text{font-size:22px;font-weight:800;flex:1;text-align:center;}
-.header-ad-btn{background:#fff;color:#1a56db;padding:8px 16px;border-radius:4px;font-weight:700;font-size:13px;cursor:pointer;border:none;white-space:nowrap;}
-.social-icons{display:flex;gap:8px;}
-.social-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;cursor:pointer;transition:opacity 0.2s;}
-.social-icon:hover{opacity:0.8;}
+#main{margin-left:240px;flex:1;transition:margin-left 0.3s;}
+#main.collapsed{margin-left:64px;}
+.topbar{background:#fff;border-bottom:1px solid #e0e0e0;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.topbar-title{font-weight:800;font-size:18px;color:#0f172a;}
+.new-btn{background:#1a56db;border:none;color:#fff;padding:9px 18px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;transition:all 0.2s;}
+.new-btn:hover{background:#1644b0;transform:translateY(-1px);}
+.content{padding:24px;}
 
-/* NAV */
-.nav{background:#1a56db;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;}
-.nav-left{display:flex;align-items:center;}
-.home-btn{background:rgba(255,255,255,0.15);color:#fff;padding:12px 16px;display:flex;align-items:center;cursor:pointer;font-size:18px;}
-.nav-items{display:flex;}
-.nav-item{color:#fff;padding:14px 16px;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:background 0.2s;white-space:nowrap;}
-.nav-item:hover,.nav-item.active{background:rgba(255,255,255,0.15);}
-.nav-arrow{font-size:10px;}
-.nav-right{display:flex;align-items:center;gap:8px;}
-.nav-icon{color:#fff;font-size:18px;cursor:pointer;padding:8px;}
-.dark-toggle{background:rgba(0,0,0,0.3);border-radius:20px;width:44px;height:24px;cursor:pointer;display:flex;align-items:center;padding:2px;}
-.dark-toggle-ball{width:20px;height:20px;border-radius:50%;background:#fff;transition:transform 0.2s;}
-.subscribe-btn{background:#fff;color:#1a56db;padding:8px 16px;border-radius:4px;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:all 0.2s;}
-.subscribe-btn:hover{background:#f0f4ff;}
-.grid-icon{color:#fff;font-size:18px;cursor:pointer;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px;}
+.stat-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,0.06);border-top:3px solid #1a56db;}
+.stat-val{font-size:32px;font-weight:800;margin-top:8px;}
+.stat-lbl{font-size:13px;color:#666;margin-top:3px;}
 
-/* TAGS */
-.tags-bar{background:#fff;border-bottom:1px solid #e8e8e8;padding:8px 0;}
-.tags-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;}
-.tags-inner::-webkit-scrollbar{display:none;}
-.tags-label{font-weight:700;color:#444;font-size:13px;white-space:nowrap;}
-.tag-pill{background:#f0f0f0;color:#444;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
-.tag-pill:hover{background:#1a56db;color:#fff;}
+.panel{background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,0.06);margin-bottom:18px;}
+.panel-title{font-weight:800;font-size:15px;margin-bottom:18px;color:#0f172a;padding-bottom:12px;border-bottom:2px solid #f0f0f0;}
 
-/* LATEST STORY BAR */
-.latest-bar{background:#fff;border-bottom:2px solid #e8e8e8;padding:0;}
-.latest-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;height:52px;gap:0;overflow:hidden;}
-.latest-btn{background:#1a56db;color:#fff;padding:0 16px;height:100%;display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;flex-shrink:0;cursor:pointer;}
-.latest-spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
-.latest-items{display:flex;align-items:center;gap:0;overflow:hidden;flex:1;}
-.latest-item{display:flex;align-items:center;gap:10px;padding:0 16px;height:52px;border-right:1px solid #e8e8e8;cursor:pointer;transition:background 0.2s;flex-shrink:0;}
-.latest-item:hover{background:#f8f8f8;}
-.latest-thumb{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;}
-.latest-title{font-size:13px;font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+table{width:100%;border-collapse:collapse;min-width:650px;}
+th{padding:11px 14px;text-align:left;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;background:#f8f9ff;letter-spacing:0.5px;}
+td{padding:10px 14px;border-top:1px solid #f5f5f5;font-size:13px;}
+tr:hover td{background:#f8f9ff;}
 
-/* MAIN CONTENT */
-.main{max-width:1200px;margin:20px auto;padding:0 16px;}
-.three-col{display:grid;grid-template-columns:1fr 1fr 260px;gap:20px;}
+.form-label{display:block;font-weight:700;font-size:12px;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.form-input{width:100%;padding:11px 14px;border-radius:8px;border:1.5px solid #e0e0e0;font-size:14px;outline:none;font-family:inherit;transition:border 0.2s;background:#fafafa;}
+.form-input:focus{border-color:#1a56db;background:#fff;}
+.form-textarea{width:100%;padding:11px 14px;border-radius:8px;border:1.5px solid #e0e0e0;font-size:14px;outline:none;resize:vertical;font-family:inherit;line-height:1.6;background:#fafafa;}
+.form-textarea:focus{border-color:#1a56db;background:#fff;}
+.form-group{margin-bottom:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
 
-/* SECTION HEADERS */
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #e8e8e8;}
-.section-title-badge{background:#1a56db;color:#fff;padding:6px 14px;font-weight:700;font-size:14px;border-radius:2px;}
-.section-nav-btns{display:flex;gap:4px;}
-.section-nav-btn{background:#f0f0f0;border:none;width:26px;height:26px;border-radius:3px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-.section-nav-btn:hover{background:#1a56db;color:#fff;}
+.btn-primary{background:#1a56db;border:none;color:#fff;padding:13px;border-radius:10px;cursor:pointer;font-weight:700;font-size:15px;transition:all 0.2s;width:100%;}
+.btn-primary:hover{background:#1644b0;transform:translateY(-1px);}
+.btn-sec{background:#f0f2f5;border:none;color:#555;padding:13px 20px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all 0.2s;}
+.btn-edit{background:#1a56db;border:none;color:#fff;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;}
+.btn-del{background:#ef4444;border:none;color:#fff;padding:5px 9px;border-radius:6px;cursor:pointer;font-size:12px;}
 
-/* MAIN STORY SLIDER */
-.slider-wrap{position:relative;border-radius:4px;overflow:hidden;background:#000;}
-.slider-img{width:100%;height:320px;object-fit:cover;display:block;transition:opacity 0.5s;}
-.slider-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 50%);}
-.slider-content{position:absolute;bottom:0;left:0;right:0;padding:20px;}
-.slider-cats{display:flex;gap:6px;margin-bottom:8px;}
-.slider-cat{padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;color:#fff;}
-.slider-title{font-family:'Merriweather',serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:8px;cursor:pointer;}
-.slider-meta{display:flex;gap:12px;font-size:12px;color:rgba(255,255,255,0.75);align-items:center;}
-.slider-meta span{display:flex;align-items:center;gap:4px;}
-.slider-dots{position:absolute;bottom:16px;right:20px;display:flex;gap:6px;}
-.slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.2s;}
-.slider-dot.active{background:#fff;width:24px;border-radius:5px;}
+.badge-break{background:#fee2e2;color:#dc2626;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;}
+.badge-trend{background:#fff7ed;color:#ea580c;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;}
+.badge-pub{background:#f0fdf4;color:#16a34a;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;}
+.badge-cat{background:#eff6ff;color:#1a56db;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;}
 
-/* TODAY POST */
-.today-card{border-radius:4px;overflow:hidden;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.08);margin-bottom:12px;cursor:pointer;transition:all 0.2s;}
-.today-card:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,0.12);}
-.today-img-wrap{position:relative;}
-.today-img{width:100%;height:140px;object-fit:cover;}
-.today-cats{position:absolute;bottom:8px;left:8px;display:flex;gap:6px;}
-.today-cat{padding:3px 8px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;}
-.today-body{padding:12px;}
-.today-title{font-family:'Merriweather',serif;font-size:14px;font-weight:700;line-height:1.4;margin-bottom:6px;}
-.today-meta{font-size:11px;color:#888;display:flex;align-items:center;gap:6px;}
+.right-panel{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,0.06);margin-bottom:14px;}
+.rp-title{font-weight:800;font-size:13px;margin-bottom:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px;}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.cat-opt{padding:7px;border-radius:7px;border:1.5px solid #e0e0e0;background:#fff;color:#555;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;text-align:center;}
+.cat-opt.active{border-color:#1a56db;background:#eff6ff;color:#1a56db;}
+.status-row{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;border-radius:8px;margin-bottom:6px;transition:background 0.2s;}
 
-/* TODAY UPDATE SIDEBAR */
-.update-tabs{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e8e8e8;}
-.update-tab{padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;color:#666;transition:all 0.2s;display:flex;align-items:center;gap:5px;}
-.update-tab.active{color:#1a56db;border-bottom-color:#1a56db;}
-.update-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background 0.2s;}
-.update-item:hover{background:#f8f9ff;}
-.update-item:last-child{border-bottom:none;}
-.update-thumb{width:72px;height:56px;object-fit:cover;border-radius:3px;flex-shrink:0;}
-.update-body{}
-.update-cats{display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap;}
-.update-cat{padding:2px 6px;border-radius:2px;font-size:10px;font-weight:700;color:#fff;}
-.update-title{font-size:12px;font-weight:700;line-height:1.4;color:#222;}
-.update-date{font-size:11px;color:#888;margin-top:3px;display:flex;align-items:center;gap:4px;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;display:none;align-items:center;justify-content:center;}
+.overlay.show{display:flex;}
+.confirm-box{background:#fff;border-radius:14px;padding:30px;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
 
-/* FEATURED STORY */
-.featured-section{background:#fff;padding:20px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:20px;}
-.featured-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
-.featured-card{cursor:pointer;transition:all 0.2s;}
-.featured-card:hover .feat-title{color:#1a56db;}
-.feat-img-wrap{position:relative;border-radius:4px;overflow:hidden;margin-bottom:10px;}
-.feat-img{width:100%;height:160px;object-fit:cover;transition:transform 0.3s;}
-.featured-card:hover .feat-img{transform:scale(1.04);}
-.feat-cam{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.6);color:#fff;width:26px;height:26px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;}
-.feat-cats{position:absolute;bottom:8px;left:8px;display:flex;gap:4px;}
-.feat-cat{padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;color:#fff;}
-.feat-title{font-family:'Merriweather',serif;font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px;color:#222;transition:color 0.2s;}
-.feat-meta{font-size:11px;color:#888;display:flex;align-items:center;gap:6px;}
-.feat-avatar{width:16px;height:16px;border-radius:50%;background:#1a56db;display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#fff;}
+#toast{position:fixed;bottom:24px;right:24px;padding:13px 20px;border-radius:10px;font-weight:700;font-size:14px;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,0.3);animation:toastIn 0.3s ease;display:none;}
 
-/* FOOTER */
-footer{background:#111;color:#aaa;margin-top:30px;}
-.footer-top{background:#1a56db;padding:16px 0;}
-.footer-top-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-.footer-newsletter{display:flex;gap:10px;align-items:center;}
-.footer-nl-label{color:#fff;font-weight:700;font-size:15px;}
-.footer-nl-input{padding:10px 16px;border-radius:4px;border:none;font-size:14px;outline:none;width:250px;font-family:inherit;}
-.footer-nl-btn{background:#111;color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit;}
-.footer-social{display:flex;gap:8px;}
-.footer-inner{max-width:1200px;margin:0 auto;padding:40px 16px 20px;}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;}
-.footer-logo-text{font-size:22px;font-weight:800;color:#fff;margin-bottom:10px;}
-.footer-desc{font-size:13px;line-height:1.7;margin-bottom:16px;}
-.footer-h{color:#fff;font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #333;}
-.footer-link{font-size:13px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:6px;}
-.footer-link:hover{color:#fff;}
-.footer-link::before{content:"›";color:#1a56db;}
-.footer-bottom{border-top:1px solid #333;padding-top:20px;display:flex;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:10px;}
+.two-col{display:grid;grid-template-columns:1fr 300px;gap:18px;}
+.two-col-eq{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.cswatch{width:24px;height:24px;border-radius:6px;cursor:pointer;border:2px solid #e0e0e0;transition:transform 0.15s;display:inline-block;}
+.cswatch:hover{transform:scale(1.2);}
+.cswatch.active{border:3px solid #fff;box-shadow:0 0 0 2px #1a56db;}
 
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
-.modal-overlay.show{display:flex;}
-.modal-box{background:#fff;border-radius:8px;max-width:750px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
-.modal-img{width:100%;height:320px;object-fit:cover;}
-.modal-body{padding:28px;}
-.modal-cats{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.modal-cat{padding:4px 10px;border-radius:3px;font-size:11px;font-weight:700;color:#fff;}
-.modal-title{font-family:'Merriweather',serif;font-size:24px;font-weight:900;line-height:1.4;margin-bottom:14px;}
-.modal-meta{display:flex;gap:16px;font-size:13px;color:#888;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #f0f0f0;}
-.modal-text{font-size:15px;line-height:1.8;color:#333;}
-.modal-close-btn{position:absolute;top:16px;right:16px;background:rgba(0,0,0,0.6);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
-
-/* AD BOXES */
-.ad-box{background:#f9f9f9;border:1px dashed #ccc;border-radius:6px;text-align:center;overflow:hidden;position:relative;}
-.ad-box-label{position:absolute;top:4px;left:50%;transform:translateX(-50%);font-size:9px;color:#aaa;letter-spacing:1px;text-transform:uppercase;background:#f9f9f9;padding:0 6px;z-index:1;}
-.ad-leaderboard{width:100%;min-height:90px;margin:10px 0;}
-.ad-rectangle{width:100%;min-height:250px;}
-.ad-mobile{width:100%;min-height:50px;}
-.adsbygoogle{display:block;}
-.bg-blue{background:#1a56db;}
-.bg-green{background:#0e9f6e;}
-.bg-orange{background:#ff6b35;}
-.bg-red{background:#e02424;}
-.bg-purple{background:#7e3af2;}
-.bg-teal{background:#0694a2;}
-.bg-yellow{background:#c27803;} 
-.bg-pink{background:#d61f69;}
-
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn 0.4s ease;}
-
-@media(max-width:900px){
-  .three-col{grid-template-columns:1fr!important;}
-  .featured-grid{grid-template-columns:repeat(2,1fr)!important;}
-  .header-ad{display:none!important;}
-  .footer-grid{grid-template-columns:1fr 1fr!important;}
-  .nav-items .nav-item:nth-child(n+5){display:none;}
-}
-@media(max-width:600px){
-  .featured-grid{grid-template-columns:1fr!important;}
-  .footer-grid{grid-template-columns:1fr!important;}
-  .ticker-right{display:none!important;}
-  .latest-item:nth-child(n+3){display:none!important;}
-}
+@media(max-width:900px){.two-col{grid-template-columns:1fr!important;}.two-col-eq{grid-template-columns:1fr!important;}}
 </style>
 </head>
 <body>
 
-<!-- TICKER BAR -->
-<div class="ticker-bar">
-  <div class="ticker-fire">🔥 Trending News:</div>
-  <div class="ticker-scroll"><span class="ticker-text" id="ticker-text">Navigating the Landscape of Cryptocurrency Trends | IPL 2025 Finals Tonight | Sensex crosses 80,000 mark | ISRO announces Chandrayaan-4 | Delhi rains cause traffic jams | Virat Kohli returns to Test cricket</span></div>
-  <div class="ticker-right">
-    <span>📅 <span id="ticker-date"></span></span>
-    <span class="ticker-time" id="ticker-clock"></span>
-    <span>🌡️ <span id="ticker-weather">Patna 32°C</span></span>
+<div id="sidebar">
+  <div class="sb-header">
+    <div id="sb-logo-wrap">
+      <div class="sb-logo">News<span>Munch</span></div>
+      <div class="sb-sub">Admin Panel CMS</div>
+    </div>
+    <button class="sb-toggle" onclick="toggleSidebar()">◀</button>
+  </div>
+  <nav class="sb-nav" id="sb-nav"></nav>
+  <div class="sb-footer" id="sb-footer">
+    <a class="news-link" href="news.html" target="_blank">🌐 News Page Dekho</a>
   </div>
 </div>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-inner">
-    <div class="logo">
-      <div class="logo-icon">N
-        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">📊 Dashboard</div>
+    <button class="new-btn" onclick="goAdd()">✏️ New Article</button>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+<div class="overlay" id="del-overlay">
+  <div class="confirm-box">
+    <div style="font-size:44px;margin-bottom:14px">🗑️</div>
+    <h3 style="font-weight:800;margin-bottom:10px;">Delete karna chahte hain?</h3>
+    <p style="color:#666;margin-bottom:22px;font-size:14px;">Yeh article permanently delete ho jaayega.</p>
+    <div style="display:flex;gap:10px;">
+      <button onclick="closeDelOverlay()" style="flex:1;background:#f0f2f5;border:none;border-radius:8px;padding:11px;cursor:pointer;font-weight:700;font-family:inherit;">Cancel</button>
+      <button onclick="confirmDelete()" style="flex:1;background:#ef4444;border:none;color:#fff;border-radius:8px;padding:11px;cursor:pointer;font-weight:700;font-family:inherit;">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const DEFAULT_ARTICLES=[
+  {id:1,title:"The Landscape of Cryptocurrency Trends in 2025",category:"Business",category2:"Technology",summary:"Cryptocurrency market is seeing major shifts in 2025. Bitcoin has crossed new highs.",image:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",time:"January 27, 2025",source:"Admin",views:"2.4M",trending:true,breaking:true},
+  {id:2,title:"The Power of Wind Energy and Renewable Future",category:"Technology",category2:"Economy",summary:"Wind energy is rapidly becoming one of the most cost-effective sources of electricity.",image:"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"1.8M",trending:true,breaking:false},
+  {id:3,title:"Golden Gate's Timeless Majesty and Architecture",category:"Economy",category2:"Western",summary:"The Golden Gate Bridge continues to inspire millions of visitors every year.",image:"https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"890K",trending:false,breaking:false},
+];
+const DEFAULT_SETTINGS={siteName:"NewsMunch",tagline:"Leading The Way",primaryColor:"#1a56db",bgColor:"#f1f1f1",textColor:"#222",headerBg:"#1a56db",fontSize:"14",coverImage:"",showTicker:true,adBannerText:""};
+const CATEGORIES=["India","World","Business","Sports","Technology","Entertainment","Science","Health","Economy","Western"];
+const SIDEBAR_ITEMS=[{key:"dashboard",icon:"📊",label:"Dashboard"},{key:"articles",icon:"📰",label:"Articles"},{key:"add",icon:"✏️",label:"Add Article"},{key:"design",icon:"🎨",label:"Design & Theme"},{key:"media",icon:"🖼️",label:"Media Library"},{key:"ads",icon:"📢",label:"Ads Setup"},{key:"notifications",icon:"🔔",label:"Notifications"},{key:"settings",icon:"⚙️",label:"Site Settings"}];
+
+let activeTab="dashboard",sidebarOpen=true,editingId=null,deleteId=null,form={},mediaImages=[];
+
+function loadArticles(){try{const s=localStorage.getItem("bharatnews_articles");if(s)return JSON.parse(s);}catch{}return DEFAULT_ARTICLES;}
+function loadSettings(){try{const s=localStorage.getItem("bharatnews_settings");if(s)return JSON.parse(s);}catch{}return{...DEFAULT_SETTINGS};}
+function saveArticles(a){try{localStorage.setItem("bharatnews_articles",JSON.stringify(a));}catch{}}
+function saveSettings(s){try{localStorage.setItem("bharatnews_settings",JSON.stringify(s));}catch{}}
+
+function showToast(msg,type="success"){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background=type==="error"?"#ef4444":"#16a34a";t.style.display="block";
+  setTimeout(()=>t.style.display="none",3000);
+}
+function persistA(a){saveArticles(a);showToast("✅ News page turant update ho gayi!");}
+function persistS(s){saveSettings(s);showToast("✅ Settings save ho gayi!");}
+
+function toggleSidebar(){
+  sidebarOpen=!sidebarOpen;
+  document.getElementById('sidebar').classList.toggle('collapsed',!sidebarOpen);
+  document.getElementById('main').classList.toggle('collapsed',!sidebarOpen);
+  document.getElementById('sb-logo-wrap').style.display=sidebarOpen?'block':'none';
+  document.getElementById('sb-footer').style.display=sidebarOpen?'block':'none';
+  document.querySelector('.sb-toggle').textContent=sidebarOpen?'◀':'▶';
+}
+
+function buildSidebar(){
+  document.getElementById('sb-nav').innerHTML=SIDEBAR_ITEMS.map(i=>`
+    <div class="sb-item ${activeTab===i.key?'active':''}" onclick="setTab('${i.key}')">
+      <span class="sb-icon">${i.icon}</span><span class="sb-label">${i.label}</span>
+    </div>`).join('');
+}
+
+function setTab(tab){
+  activeTab=tab;editingId=null;form={};
+  buildSidebar();
+  const item=SIDEBAR_ITEMS.find(i=>i.key===tab);
+  document.getElementById('topbar-title').textContent=item.icon+' '+item.label;
+  renderContent();
+}
+function goAdd(){setTab('add');}
+
+function renderContent(){
+  const c=document.getElementById('content');
+  if(activeTab==="dashboard")c.innerHTML=renderDashboard();
+  else if(activeTab==="articles")c.innerHTML=renderArticles();
+  else if(activeTab==="add")c.innerHTML=renderAdd();
+  else if(activeTab==="design")c.innerHTML=renderDesign();
+  else if(activeTab==="media")c.innerHTML=renderMedia();
+  else if(activeTab==="ads")c.innerHTML=renderAds();
+  else if(activeTab==="notifications")c.innerHTML=renderNotifications();
+  else if(activeTab==="settings")c.innerHTML=renderSettings();
+}
+
+function renderDashboard(){
+  const arts=loadArticles();
+  const stats=[{label:"Total Articles",val:arts.length,icon:"📰",color:"#1a56db"},{label:"Breaking News",val:arts.filter(a=>a.breaking).length,icon:"🔴",color:"#dc2626"},{label:"Trending",val:arts.filter(a=>a.trending).length,icon:"🔥",color:"#ea580c"},{label:"Categories",val:new Set(arts.map(a=>a.category)).size,icon:"📁",color:"#16a34a"}];
+  return`<div class="slide-in">
+    <div class="stat-grid">${stats.map(s=>`<div class="stat-card" style="border-top-color:${s.color}"><div style="font-size:26px">${s.icon}</div><div class="stat-val" style="color:${s.color}">${s.val}</div><div class="stat-lbl">${s.label}</div></div>`).join('')}</div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:18px;">
+      <div class="panel">
+        <div class="panel-title">🕒 Recent Articles</div>
+        ${arts.slice(0,6).map(a=>`<div style="display:flex;gap:10px;align-items:center;padding:10px 6px;border-bottom:1px solid #f5f5f5;">
+          <img src="${a.image}" style="width:50px;height:38px;object-fit:cover;border-radius:5px;">
+          <div style="flex:1;min-width:0;"><div style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${a.title}</div><div style="font-size:11px;color:#888;margin-top:1px;">${a.category} • ${a.time}</div></div>
+          <button class="btn-edit" onclick="startEdit(${a.id})">Edit</button>
+        </div>`).join('')}
       </div>
-      <span class="logo-text" id="site-name">NewsMunch</span>
-    </div>
-    <div class="header-ad">
-      <div class="header-ad-icon">Ads</div>
-      <div class="header-ad-text" id="site-tagline">Leading The Way</div>
-      <button class="header-ad-btn">Get Quickly</button>
-    </div>
-    <div class="social-icons">
-      <div class="social-icon" style="background:#1877f2">f</div>
-      <div class="social-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">📷</div>
-      <div class="social-icon" style="background:#111">𝕏</div>
-      <div class="social-icon" style="background:#ff0000">▶</div>
-    </div>
-  </div>
-</div>
-
-<!-- NAV -->
-<div class="nav">
-  <div class="nav-inner">
-    <div class="nav-left">
-      <div class="home-btn">🏠</div>
-      <div class="nav-items" id="nav-items">
-        <div class="nav-item active">Newsbeat <span class="nav-arrow">▾</span></div>
-        <div class="nav-item" onclick="filterCat('World')">Blog</div>
-        <div class="nav-item" onclick="filterCat('Sports')">Sports</div>
-        <div class="nav-item" onclick="filterCat('Entertainment')">Western</div>
-        <div class="nav-item" onclick="filterCat('Technology')">Newness</div>
-        <div class="nav-item" onclick="filterCat('Health')">Fashion</div>
-        <div class="nav-item" onclick="filterCat('Business')">Newsbeat</div>
+      <div class="panel">
+        <div class="panel-title">⚡ Quick Actions</div>
+        ${[{l:"New Breaking News",i:"🔴",f:"goBreaking()"},{l:"Change Cover",i:"🖼️",f:"setTab('design')"},{l:"Edit Theme",i:"🎨",f:"setTab('design')"},{l:"Manage Ads",i:"📢",f:"setTab('ads')"},{l:"Send Notification",i:"🔔",f:"setTab('notifications')"}].map(q=>`
+          <button onclick="${q.f}" style="display:flex;align-items:center;gap:10px;width:100%;background:#f8f9ff;border:1px solid #e8e8ff;border-radius:8px;padding:11px 14px;cursor:pointer;margin-bottom:7px;font-weight:600;font-size:13px;color:#0f172a;font-family:inherit;">
+            <span style="font-size:17px">${q.i}</span>${q.l}
+          </button>`).join('')}
       </div>
     </div>
-    <div class="nav-right">
-      <span class="nav-icon">🔍</span>
-      <span class="nav-icon">👤</span>
-      <span class="nav-icon">🔔</span>
-      <div class="dark-toggle"><div class="dark-toggle-ball"></div></div>
-      <button class="subscribe-btn">Subscribe</button>
-      <span class="grid-icon">⊞</span>
+  </div>`;
+}
+
+function renderArticles(){
+  const arts=loadArticles();
+  return`<div class="slide-in">
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <div style="padding:14px 22px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-weight:700;font-size:15px;">${arts.length} Articles</span>
+        <button class="btn-edit" onclick="goAdd()" style="padding:7px 16px;border-radius:8px;font-size:13px;">+ Add New</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Status</th><th>Views</th><th>Actions</th></tr></thead>
+          <tbody>${arts.map(a=>`<tr>
+            <td><img src="${a.image}" style="width:58px;height:42px;object-fit:cover;border-radius:5px;"></td>
+            <td style="max-width:240px;"><div style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${a.title}</div><div style="font-size:11px;color:#aaa;margin-top:1px;">${a.source||'Admin'} • ${a.time}</div></td>
+            <td><span class="badge-cat">${a.category}</span>${a.category2?` <span class="badge-cat">${a.category2}</span>`:''}</td>
+            <td>${a.breaking?'<span class="badge-break">🔴 BREAKING</span> ':''} ${a.trending?'<span class="badge-trend">🔥 TRENDING</span>':''} ${!a.breaking&&!a.trending?'<span class="badge-pub">✓ Live</span>':''}</td>
+            <td style="color:#666;font-weight:600;">${a.views||'0'}</td>
+            <td><div style="display:flex;gap:5px;"><button class="btn-edit" onclick="startEdit(${a.id})">✏️</button><button class="btn-del" onclick="askDelete(${a.id})">🗑️</button></div></td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
     </div>
-  </div>
-</div>
+  </div>`;
+}
 
-<!-- AD: HEADER LEADERBOARD 728x90 -->
-<div style="background:#fff;padding:10px 0;border-bottom:1px solid #e8e8e8;">
-  <div style="max-width:1200px;margin:0 auto;padding:0 16px;">
-    <div class="ad-box ad-leaderboard">
-      <span class="ad-box-label">Advertisement</span>
-      <!-- AdSense Header Banner -->
-      <ins class="adsbygoogle ad-leaderboard"
-           style="display:block;min-height:90px;"
-           data-ad-client="ca-pub-9215124873928983"
-           data-ad-slot="1111111111"
-           data-ad-format="horizontal"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-  </div>
-</div>
-
-<!-- TAGS BAR -->
-<div class="tags-bar">
-  <div class="tags-inner">
-    <span class="tags-label"># Top Tags</span>
-    <span class="tag-pill" onclick="filterCat('Technology')">Technology</span>
-    <span class="tag-pill">Well-being</span>
-    <span class="tag-pill">Eco-friendly</span>
-    <span class="tag-pill">Sustainability</span>
-    <span class="tag-pill" onclick="filterCat('Sports')">Sports</span>
-    <span class="tag-pill">Clean Energy</span>
-    <span class="tag-pill">Gaming Culture</span>
-    <span class="tag-pill">Artificial Intelligence</span>
-    <span class="tag-pill" onclick="filterCat('Business')">Business</span>
-    <span class="tag-pill" onclick="filterCat('India')">India</span>
-  </div>
-</div>
-
-<!-- LATEST STORY BAR -->
-<div class="latest-bar">
-  <div class="latest-inner">
-    <div class="latest-btn"><div class="latest-spinner"></div>Latest Story</div>
-    <div class="latest-items" id="latest-items"></div>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-  <div class="three-col">
-
-    <!-- MAIN STORY -->
-    <div>
-      <div class="section-header">
-        <div class="section-title-badge">Main Story</div>
-        <div class="section-nav-btns">
-          <button class="section-nav-btn" onclick="prevSlide()">‹</button>
-          <button class="section-nav-btn" onclick="nextSlide()">›</button>
+function renderAdd(){
+  return`<div class="slide-in">
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">${editingId?'✏️ Article Edit':'➕ Naya Article Publish Karo'}</div>
+        <div class="form-group"><label class="form-label">📰 Headline / Title *</label><textarea class="form-textarea" id="f-title" rows="2" placeholder="Catchy headline likhein...">${form.title||''}</textarea></div>
+        <div class="form-group"><label class="form-label">📝 Summary / Description *</label><textarea class="form-textarea" id="f-summary" rows="5" placeholder="Poori khabar likhein...">${form.summary||''}</textarea></div>
+        <div class="form-row">
+          <div><label class="form-label">📡 Source / Author</label><input class="form-input" id="f-source" value="${form.source||''}" placeholder="Admin, Desert..."></div>
+          <div><label class="form-label">👁 Views</label><input class="form-input" id="f-views" value="${form.views||''}" placeholder="1.2M"></div>
         </div>
-      </div>
-      <div class="slider-wrap">
-        <img class="slider-img" id="slider-img" src="" alt="">
-        <div class="slider-overlay"></div>
-        <div class="slider-content">
-          <div class="slider-cats" id="slider-cats"></div>
-          <div class="slider-title" id="slider-title" onclick="openSliderModal()"></div>
-          <div class="slider-meta">
-            <span>👤 By Admin</span>
-            <span>📅 <span id="slider-date"></span></span>
-            <span>💬 0</span>
-            <span>👁 <span id="slider-views"></span> views</span>
+        <div class="form-row">
+          <div><label class="form-label">📁 Category 1</label>
+            <select class="form-input" id="f-category">${CATEGORIES.map(c=>`<option value="${c}" ${form.category===c?'selected':''}>${c}</option>`).join('')}</select>
+          </div>
+          <div><label class="form-label">📁 Category 2 (Optional)</label>
+            <select class="form-input" id="f-category2"><option value="">None</option>${CATEGORIES.map(c=>`<option value="${c}" ${form.category2===c?'selected':''}>${c}</option>`).join('')}</select>
           </div>
         </div>
-        <div class="slider-dots" id="slider-dots"></div>
-      </div>
-    </div>
-
-    <!-- TODAY POST -->
-    <div>
-      <div class="section-header">
-        <div class="section-title-badge">Today Post</div>
-      </div>
-      <div id="today-posts"></div>
-    </div>
-
-    <!-- TODAY UPDATE SIDEBAR -->
-    <div>
-      <div class="section-header">
-        <div class="section-title-badge">Today Update</div>
-      </div>
-      <div class="update-tabs">
-        <div class="update-tab active" onclick="setUpdateTab('popular',this)">🔥 Popular</div>
-        <div class="update-tab" onclick="setUpdateTab('western',this)">⚫ Western</div>
-        <div class="update-tab" onclick="setUpdateTab('gaming',this)">⚫ Gaming</div>
-      </div>
-      <div id="update-list"></div>
-
-      <!-- AD: SIDEBAR RECTANGLE 300x250 -->
-      <div class="ad-box ad-rectangle" style="margin-top:16px;">
-        <span class="ad-box-label">Advertisement</span>
-        <ins class="adsbygoogle"
-             style="display:block;min-height:250px;"
-             data-ad-client="ca-pub-9215124873928983"
-             data-ad-slot="2222222222"
-             data-ad-format="rectangle"
-             data-full-width-responsive="false"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- FEATURED STORY -->
-  <div class="featured-section fade-in">
-    <div class="section-header">
-      <div class="section-title-badge">Featured Story</div>
-      <div class="section-nav-btns">
-        <button class="section-nav-btn">‹</button>
-        <button class="section-nav-btn">›</button>
-      </div>
-    </div>
-    <div class="featured-grid" id="featured-grid"></div>
-  </div>
-
-  <!-- AD: IN-CONTENT 728x90 -->
-  <div class="ad-box ad-leaderboard" style="margin-bottom:20px;">
-    <span class="ad-box-label">Advertisement</span>
-    <ins class="adsbygoogle"
-         style="display:block;min-height:90px;"
-         data-ad-client="ca-pub-9215124873928983"
-         data-ad-slot="3333333333"
-         data-ad-format="horizontal"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-
-  <!-- MORE NEWS -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;" id="more-news-grid"></div>
-
-</div>
-
-<!-- AD: FOOTER LEADERBOARD 728x90 -->
-<div style="background:#fff;padding:12px 0;border-top:1px solid #e8e8e8;">
-  <div style="max-width:1200px;margin:0 auto;padding:0 16px;">
-    <div class="ad-box ad-leaderboard">
-      <span class="ad-box-label">Advertisement</span>
-      <ins class="adsbygoogle"
-           style="display:block;min-height:90px;"
-           data-ad-client="ca-pub-9215124873928983"
-           data-ad-slot="4444444444"
-           data-ad-format="horizontal"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-top-inner">
-      <div class="footer-newsletter">
-        <span class="footer-nl-label">📧 Newsletter Subscribe</span>
-        <input class="footer-nl-input" placeholder="Enter your email address...">
-        <button class="footer-nl-btn">Subscribe</button>
-      </div>
-      <div class="footer-social">
-        <div class="social-icon" style="background:#1877f2">f</div>
-        <div class="social-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743)">📷</div>
-        <div class="social-icon" style="background:#111">𝕏</div>
-        <div class="social-icon" style="background:#ff0000">▶</div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo-text" id="footer-name">NewsMunch</div>
-        <p class="footer-desc">Bharat ki sabse tez aur vishwasniya khabar ka source. Hum 24/7 aapko latest news dete hain. Hamari team din-raat kaam karti hai taaki aap kabhi bhi koi khabar miss na karein.</p>
-        <div style="display:flex;gap:8px;">
-          <div class="social-icon" style="background:#1877f2;width:32px;height:32px;font-size:13px;">f</div>
-          <div class="social-icon" style="background:#1da1f2;width:32px;height:32px;font-size:13px;">🐦</div>
-          <div class="social-icon" style="background:#ff0000;width:32px;height:32px;font-size:13px;">▶</div>
-          <div class="social-icon" style="background:linear-gradient(45deg,#f09433,#dc2743);width:32px;height:32px;font-size:13px;">📷</div>
+        <div style="display:flex;gap:10px;margin-top:6px;">
+          <button class="btn-primary" onclick="saveArticle()">${editingId?'💾 Update':'🚀 Publish Karo'}</button>
+          <button class="btn-sec" onclick="setTab('articles')">Cancel</button>
         </div>
       </div>
       <div>
-        <div class="footer-h">Quick Links</div>
-        <div class="footer-link" onclick="filterCat('India')">India News</div>
-        <div class="footer-link" onclick="filterCat('World')">World News</div>
-        <div class="footer-link" onclick="filterCat('Sports')">Sports</div>
-        <div class="footer-link" onclick="filterCat('Technology')">Technology</div>
-        <div class="footer-link" onclick="filterCat('Business')">Business</div>
-      </div>
-      <div>
-        <div class="footer-h">Categories</div>
-        <div class="footer-link" onclick="filterCat('Entertainment')">Entertainment</div>
-        <div class="footer-link" onclick="filterCat('Science')">Science</div>
-        <div class="footer-link" onclick="filterCat('Health')">Health</div>
-        <div class="footer-link">About Us</div>
-        <div class="footer-link">Contact</div>
-      </div>
-      <div>
-        <div class="footer-h">Follow Us</div>
-        <div class="footer-link">📘 Facebook</div>
-        <div class="footer-link">🐦 Twitter / X</div>
-        <div class="footer-link">📸 Instagram</div>
-        <div class="footer-link">▶️ YouTube</div>
-        <div class="footer-link">💼 LinkedIn</div>
+        <div class="right-panel">
+          <div class="rp-title">🏷️ Status</div>
+          <label class="status-row" style="background:${form.breaking?'#fee2e2':'#f8f9ff'};border:1px solid ${form.breaking?'#dc2626':'#e0e0e0'};">
+            <input type="checkbox" id="f-breaking" ${form.breaking?'checked':''} style="width:16px;height:16px;accent-color:#dc2626;">
+            <span style="font-weight:700;font-size:13px;color:${form.breaking?'#dc2626':'#555'}">🔴 Breaking News</span>
+          </label>
+          <label class="status-row" style="background:${form.trending?'#fff7ed':'#f8f9ff'};border:1px solid ${form.trending?'#ea580c':'#e0e0e0'};">
+            <input type="checkbox" id="f-trending" ${form.trending?'checked':''} style="width:16px;height:16px;accent-color:#ea580c;">
+            <span style="font-weight:700;font-size:13px;color:${form.trending?'#ea580c':'#555'}">🔥 Trending</span>
+          </label>
+        </div>
+        <div class="right-panel">
+          <div class="rp-title">🖼️ Article Image</div>
+          <img id="img-preview" src="${form.image||''}" style="${form.image?'display:block':'display:none'};width:100%;height:130px;object-fit:cover;border-radius:8px;margin-bottom:10px;">
+          <input class="form-input" id="f-image" placeholder="Image URL..." value="${form.image||''}" oninput="prevImg(this.value)" style="margin-bottom:8px;">
+          <button onclick="document.getElementById('img-file').click()" style="width:100%;background:#1a56db;border:none;color:#fff;padding:9px;border-radius:8px;cursor:pointer;font-weight:700;font-size:12px;font-family:inherit;">📤 Upload Image</button>
+          <input type="file" id="img-file" accept="image/*" onchange="handleImg(event)" style="display:none">
+        </div>
+        <div class="right-panel">
+          <div class="rp-title">📅 Publish Date</div>
+          <input class="form-input" id="f-time" value="${form.time||new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}" placeholder="January 27, 2025">
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span id="footer-copy">© 2025 NewsMunch. All rights reserved.</span>
-      <div style="display:flex;gap:16px;"><span style="cursor:pointer">Privacy Policy</span><span style="cursor:pointer">Terms</span><span style="cursor:pointer">Sitemap</span></div>
-    </div>
-  </div>
-</footer>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal-box" style="position:relative;">
-    <img class="modal-img" id="modal-img" src="" alt="">
-    <button class="modal-close-btn" onclick="closeModalBtn()">✕</button>
-    <div class="modal-body">
-      <div class="modal-cats" id="modal-cats"></div>
-      <h1 class="modal-title" id="modal-title"></h1>
-      <div class="modal-meta">
-        <span>👤 By Admin</span>
-        <span>📅 <span id="modal-date"></span></span>
-        <span>👁 <span id="modal-views"></span> views</span>
-      </div>
-      <p class="modal-text" id="modal-text"></p>
-      <p class="modal-text" style="margin-top:14px;color:#555;">Yeh khabar NewsMunch ke reporters ne file ki hai. Adhik jaankari ke liye official sources check karein. Latest updates ke liye hamare saath bane rahein aur notifications enable karein.</p>
-    </div>
-  </div>
-</div>
-
-<script>
-// ===== DATA =====
-const DEFAULT_ARTICLES = [
-  {id:1,title:"The Landscape of Cryptocurrency Trends in 2025",category:"Business",category2:"Technology",summary:"Cryptocurrency market is seeing major shifts in 2025. Bitcoin has crossed new highs while new altcoins are emerging as strong contenders in the digital currency space.",image:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",time:"January 27, 2025",source:"Admin",views:"2.4M",trending:true,breaking:true},
-  {id:2,title:"The Power of Wind Energy and Renewable Future",category:"Technology",category2:"Economy",summary:"Wind energy is rapidly becoming one of the most cost-effective sources of electricity. New turbine technologies are making it possible to generate power even in low-wind areas.",image:"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"1.8M",trending:true,breaking:false},
-  {id:3,title:"Golden Gate's Timeless Majesty and Architecture",category:"Economy",category2:"Western",summary:"The Golden Gate Bridge continues to inspire millions of visitors every year. Recent restoration works have preserved its iconic red-orange color and structural integrity.",image:"https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"890K",trending:false,breaking:false},
-  {id:4,title:"AI is the Best Learning Experience for Students",category:"Technology",category2:"Newness",summary:"Artificial Intelligence is revolutionizing education. From personalized learning paths to instant feedback, AI tools are helping students achieve better results in less time.",image:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"3.2M",trending:true,breaking:false},
-  {id:5,title:"Harnessing the Power of Wind Energy Globally",category:"Economy",category2:"Technology",summary:"Global investment in wind energy reached record levels last year. Countries across Asia, Europe and Americas are ramping up their wind power capacity.",image:"https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"1.1M",trending:false,breaking:false},
-  {id:6,title:"Ultimate Sports Ground Experience in Modern Stadiums",category:"Sports",category2:"Economy",summary:"Modern sports stadiums are being designed with fan experience at the forefront. New technologies like AR displays, smart seating and instant replay screens are changing how we watch sports.",image:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"756K",trending:false,breaking:false},
-  {id:7,title:"All Future of Work Like Remote Collaboration Tools",category:"Technology",category2:"Economy",summary:"The future of work is hybrid. Companies are investing heavily in remote collaboration tools that make virtual teams as productive as in-person ones.",image:"https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"445K",trending:false,breaking:false},
-  {id:8,title:"Rise of Competitive Video Gaming Esports Scene",category:"Technology",category2:"Western",summary:"Esports is now a billion-dollar industry. Professional gaming leagues are filling arenas and attracting massive online viewership across the globe.",image:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"2.1M",trending:false,breaking:false},
-  {id:9,title:"India's Space Program Eyes Mars Mission by 2030",category:"Science",category2:"Technology",summary:"ISRO has unveiled ambitious plans for a Mars mission by 2030. The program includes a series of preparatory missions and international collaborations.",image:"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",time:"January 27, 2025",source:"ScienceDesk",views:"1.9M",trending:true,breaking:false},
-  {id:10,title:"Mumbai Indians Win IPL 2025 in Thrilling Final",category:"Sports",category2:"Economy",summary:"Mumbai Indians clinched the IPL 2025 title in a nail-biting final last night. Rohit Sharma's brilliant century guided the team to a famous victory.",image:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80",time:"January 27, 2025",source:"SportDesk",views:"9.2M",trending:true,breaking:true},
-  {id:11,title:"Health Revolution: Yoga Goes Global with WHO Backing",category:"Health",category2:"Newness",summary:"World Health Organization has officially endorsed yoga and meditation as key components of global mental health strategy. Nations are now integrating these practices into public health systems.",image:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",time:"January 27, 2025",source:"HealthDesk",views:"678K",trending:false,breaking:false},
-  {id:12,title:"Electric Vehicle Revolution Sweeps Across India",category:"Technology",category2:"Economy",summary:"India's EV market has seen 300% growth in the past year. Government subsidies and new affordable models from Tata and Mahindra are driving mass adoption.",image:"https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80",time:"January 27, 2025",source:"AutoDesk",views:"1.4M",trending:false,breaking:false},
-];
-
-const CAT_COLORS = {
-  "Business":"bg-orange","Technology":"bg-blue","Economy":"bg-green","Sports":"bg-red",
-  "Western":"bg-teal","Science":"bg-purple","Health":"bg-pink","Newness":"bg-blue",
-  "Entertainment":"bg-yellow","India":"bg-red","World":"bg-teal"
-};
-
-function getCatClass(cat){ return CAT_COLORS[cat]||"bg-blue"; }
-
-function loadArticles(){
-  try{const s=localStorage.getItem("bharatnews_articles");if(s)return JSON.parse(s);}catch{}
-  return DEFAULT_ARTICLES;
-}
-function loadSettings(){
-  try{const s=localStorage.getItem("bharatnews_settings");if(s)return JSON.parse(s);}catch{}
-  return {siteName:"NewsMunch",tagline:"Leading The Way",primaryColor:"#1a56db"};
+  </div>`;
 }
 
-// ===== CLOCK =====
-function updateClock(){
-  const now=new Date();
-  document.getElementById('ticker-clock').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  document.getElementById('ticker-date').textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
-}
-setInterval(updateClock,1000); updateClock();
-
-// ===== SLIDER =====
-let sliderIdx = 0;
-let sliderArts = [];
-let sliderTimer;
-
-function buildSlider(){
-  const arts = loadArticles();
-  sliderArts = arts.filter(a=>a.trending||a.breaking).slice(0,6);
-  if(!sliderArts.length) sliderArts = arts.slice(0,5);
-  renderSlide();
-  buildDots();
-  clearInterval(sliderTimer);
-  sliderTimer = setInterval(()=>{sliderIdx=(sliderIdx+1)%sliderArts.length;renderSlide();buildDots();},4000);
-}
-
-function renderSlide(){
-  const a=sliderArts[sliderIdx];
-  if(!a)return;
-  const img=document.getElementById('slider-img');
-  img.style.opacity=0;
-  setTimeout(()=>{img.src=a.image;img.style.opacity=1;},200);
-  document.getElementById('slider-title').textContent=a.title;
-  document.getElementById('slider-date').textContent=a.time;
-  document.getElementById('slider-views').textContent=a.views||'0';
-  const cc=document.getElementById('slider-cats');
-  cc.innerHTML=`<span class="slider-cat ${getCatClass(a.category)}">${a.category}</span>${a.category2?`<span class="slider-cat ${getCatClass(a.category2)}">${a.category2}</span>`:''}`;
-}
-
-function buildDots(){
-  const d=document.getElementById('slider-dots');
-  d.innerHTML=sliderArts.map((_,i)=>`<div class="slider-dot ${i===sliderIdx?'active':''}" onclick="goSlide(${i})"></div>`).join('');
-}
-
-function goSlide(i){sliderIdx=i;renderSlide();buildDots();}
-function prevSlide(){sliderIdx=(sliderIdx-1+sliderArts.length)%sliderArts.length;renderSlide();buildDots();}
-function nextSlide(){sliderIdx=(sliderIdx+1)%sliderArts.length;renderSlide();buildDots();}
-function openSliderModal(){if(sliderArts[sliderIdx])openModal(sliderArts[sliderIdx].id);}
-
-// ===== LATEST BAR =====
-function buildLatest(){
-  const arts=loadArticles().slice(0,4);
-  document.getElementById('latest-items').innerHTML=arts.map(a=>`
-    <div class="latest-item" onclick="openModal(${a.id})">
-      <img class="latest-thumb" src="${a.image}" alt="">
-      <span class="latest-title">${a.title}</span>
-    </div>`).join('');
-}
-
-// ===== TODAY POSTS =====
-function buildTodayPosts(){
-  const arts=loadArticles().slice(1,3);
-  document.getElementById('today-posts').innerHTML=arts.map(a=>`
-    <div class="today-card" onclick="openModal(${a.id})">
-      <div class="today-img-wrap">
-        <img class="today-img" src="${a.image}" alt="">
-        <div class="today-cats">
-          <span class="today-cat ${getCatClass(a.category)}">${a.category}</span>
-          ${a.category2?`<span class="today-cat ${getCatClass(a.category2)}">${a.category2}</span>`:''}
-        </div>
-      </div>
-      <div class="today-body">
-        <div class="today-title">${a.title}</div>
-        <div class="today-meta"><span>👤 By ${a.source||'Admin'}</span> • <span>📅 ${a.time}</span></div>
-      </div>
-    </div>`).join('');
-}
-
-// ===== UPDATE LIST =====
-let updateCatFilter = 'popular';
-function setUpdateTab(cat, el){
-  updateCatFilter=cat;
-  document.querySelectorAll('.update-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  buildUpdateList();
-}
-
-function buildUpdateList(){
-  const arts=loadArticles().slice(0,5);
-  document.getElementById('update-list').innerHTML=arts.map(a=>`
-    <div class="update-item" onclick="openModal(${a.id})">
-      <img class="update-thumb" src="${a.image}" alt="">
-      <div class="update-body">
-        <div class="update-cats">
-          <span class="update-cat ${getCatClass(a.category)}">${a.category}</span>
-          ${a.category2?`<span class="update-cat ${getCatClass(a.category2)}">${a.category2}</span>`:''}
-        </div>
-        <div class="update-title">${a.title}</div>
-        <div class="update-date">📅 ${a.time}</div>
-      </div>
-    </div>`).join('');
-}
-
-// ===== FEATURED GRID =====
-function buildFeatured(){
-  const arts=loadArticles().slice(0,10);
-  document.getElementById('featured-grid').innerHTML=arts.map(a=>`
-    <div class="featured-card" onclick="openModal(${a.id})">
-      <div class="feat-img-wrap">
-        <img class="feat-img" src="${a.image}" alt="">
-        <div class="feat-cam">📷</div>
-        <div class="feat-cats">
-          <span class="feat-cat ${getCatClass(a.category)}">${a.category}</span>
-          ${a.category2?`<span class="feat-cat ${getCatClass(a.category2)}">${a.category2}</span>`:''}
-        </div>
-      </div>
-      <div class="feat-title">${a.title}</div>
-      <div class="feat-meta"><span class="feat-avatar">D</span> ${a.source||'Desert'} • 📅 ${a.time}</div>
-    </div>`).join('');
-}
-
-// ===== MORE NEWS =====
-function buildMoreNews(){
-  const arts=loadArticles();
-  const cats=[...new Set(arts.map(a=>a.category))].slice(0,4);
-  const g=document.getElementById('more-news-grid');
-  g.innerHTML=cats.map(cat=>{
-    const catArts=arts.filter(a=>a.category===cat).slice(0,3);
-    return `<div style="background:#fff;border-radius:4px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-      <div class="section-header"><div class="section-title-badge">${cat}</div></div>
-      ${catArts.map(a=>`<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;cursor:pointer;" onclick="openModal(${a.id})">
-        <img src="${a.image}" style="width:72px;height:54px;object-fit:cover;border-radius:3px;flex-shrink:0;">
-        <div>
-          <div style="font-size:12px;font-weight:700;line-height:1.4;margin-bottom:4px;">${a.title}</div>
-          <div style="font-size:11px;color:#888;">📅 ${a.time}</div>
-        </div>
-      </div>`).join('')}
-    </div>`;
-  }).join('');
-}
-
-// ===== FILTER =====
-function filterCat(cat){
-  const arts=loadArticles().filter(a=>a.category===cat||a.category2===cat);
-  if(arts.length>0){
-    sliderArts=arts;sliderIdx=0;renderSlide();buildDots();
-  }
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-}
-
-// ===== MODAL =====
-let currentArticles=[];
-function openModal(id){
-  const arts=loadArticles();
-  currentArticles=arts;
-  const a=arts.find(x=>x.id===id);
-  if(!a)return;
-  document.getElementById('modal-img').src=a.image;
-  document.getElementById('modal-cats').innerHTML=`<span class="modal-cat ${getCatClass(a.category)}">${a.category}</span>${a.category2?`<span class="modal-cat ${getCatClass(a.category2)}">${a.category2}</span>`:''}`;
-  document.getElementById('modal-title').textContent=a.title;
-  document.getElementById('modal-date').textContent=a.time;
-  document.getElementById('modal-views').textContent=a.views||'0';
-  document.getElementById('modal-text').textContent=a.summary;
-  document.getElementById('modal-overlay').classList.add('show');
-  document.body.style.overflow='hidden';
-}
-function closeModalBtn(){document.getElementById('modal-overlay').classList.remove('show');document.body.style.overflow='';}
-function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeModalBtn();}
-
-// ===== SETTINGS =====
-function applySettings(){
+function renderDesign(){
   const s=loadSettings();
-  document.getElementById('site-name').textContent=s.siteName||'NewsMunch';
-  document.getElementById('site-tagline').textContent=s.tagline||'Leading The Way';
-  document.getElementById('footer-name').textContent=s.siteName||'NewsMunch';
-  document.getElementById('footer-copy').textContent='© 2025 '+(s.siteName||'NewsMunch')+'. All rights reserved.';
+  const sw=["#1a56db","#cc0000","#0a0a0a","#16a34a","#7e3af2","#ea580c","#0694a2","#d61f69"];
+  const cfs=[{k:"primaryColor",l:"Primary / Nav Color",i:"🔵"},{k:"headerBg",l:"Header Background",i:"🔝"},{k:"bgColor",l:"Page Background",i:"🖼️"},{k:"textColor",l:"Text Color",i:"🔡"}];
+  return`<div class="slide-in">
+    <div class="two-col-eq">
+      <div class="panel">
+        <div class="panel-title">🎨 Colors</div>
+        ${cfs.map(cf=>`<div style="margin-bottom:18px;">
+          <label class="form-label">${cf.i} ${cf.l}</label>
+          <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+            <input type="color" value="${s[cf.k]||'#1a56db'}" oninput="updateS('${cf.k}',this.value)" style="width:46px;height:40px;border:none;border-radius:7px;cursor:pointer;padding:2px;">
+            <input class="form-input" value="${s[cf.k]||''}" oninput="updateS('${cf.k}',this.value)" style="flex:1;">
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;">${sw.map(c=>`<div class="cswatch ${s[cf.k]===c?'active':''}" style="background:${c}" onclick="updateS('${cf.k}','${c}');renderContent()"></div>`).join('')}</div>
+        </div>`).join('')}
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-title">📝 Site Identity</div>
+          <div class="form-group"><label class="form-label">Site Name</label><input class="form-input" value="${s.siteName||''}" oninput="updateS('siteName',this.value)" placeholder="NewsMunch"></div>
+          <div class="form-group"><label class="form-label">Tagline</label><input class="form-input" value="${s.tagline||''}" oninput="updateS('tagline',this.value)" placeholder="Leading The Way"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">🔡 Font Size</div>
+          <label class="form-label">Size: ${s.fontSize||14}px</label>
+          <input type="range" min="12" max="18" value="${s.fontSize||14}" oninput="updateS('fontSize',this.value);renderContent()" style="width:100%;accent-color:#1a56db;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#aaa;margin-top:4px;"><span>12px</span><span>18px</span></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">⚙️ Features</div>
+          <label style="display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:8px;background:#f8f9ff;cursor:pointer;">
+            <span style="font-weight:600;font-size:14px;">📺 Breaking News Ticker</span>
+            <input type="checkbox" ${s.showTicker!==false?'checked':''} onchange="updateS('showTicker',this.checked)" style="width:17px;height:17px;accent-color:#1a56db;">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>`;
 }
 
-// ===== TICKER UPDATE =====
-function updateTicker(){
+function renderMedia(){
   const arts=loadArticles();
-  const t=arts.map(a=>a.title).join(' | ');
-  document.getElementById('ticker-text').textContent=t;
+  const all=[...arts.map(a=>({url:a.image,name:a.title.slice(0,22),date:a.time})),...mediaImages];
+  return`<div class="slide-in">
+    <div class="panel" style="margin-bottom:18px;">
+      <div style="border:2px dashed #93c5fd;border-radius:10px;padding:36px 20px;text-align:center;cursor:pointer;background:#eff6ff;" onclick="document.getElementById('mf').click()">
+        <div style="font-size:44px;margin-bottom:10px">📁</div>
+        <h3 style="color:#1a56db;margin-bottom:6px">Images Upload Karein</h3>
+        <p style="color:#888;font-size:14px">Click karein ya drag & drop karein</p>
+        <input type="file" id="mf" accept="image/*" multiple onchange="handleMedia(event)" style="display:none">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;">
+      ${all.map(img=>`<div style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+        <img src="${img.url}" style="width:100%;height:105px;object-fit:cover;">
+        <div style="padding:8px 10px;"><div style="font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${img.name}</div><div style="font-size:10px;color:#aaa;margin-top:2px;">${img.date}</div></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
 }
 
-// ===== INIT =====
-function init(){
-  applySettings();
-  buildSlider();
-  buildLatest();
-  buildTodayPosts();
-  buildUpdateList();
-  buildFeatured();
-  buildMoreNews();
-  updateTicker();
+function renderAds(){
+  const s=loadSettings();
+  const adf=[{l:"Header Banner (728x90)",k:"adBannerText",p:"📢 728 × 90 Leaderboard"},{l:"Sidebar Box (300x250)",k:"adSidebar",p:"📦 300 × 250 Box"},{l:"Mobile Banner (320x50)",k:"adMobile",p:"📱 320 × 50 Mobile"},{l:"Footer (728x90)",k:"adFooter",p:"⬇️ 728 × 90 Footer"}];
+  return`<div class="slide-in"><div class="two-col-eq">
+    ${adf.map(ad=>`<div class="panel">
+      <div class="panel-title">📢 ${ad.l}</div>
+      <div style="background:#f0f2f5;border-radius:7px;padding:20px;text-align:center;margin-bottom:13px;border:1px dashed #ccc;color:#999;font-size:13px;">${ad.p}</div>
+      <label class="form-label">Ad Code / Label</label>
+      <input class="form-input" value="${s[ad.k]||''}" placeholder="Google AdSense code..." oninput="updateS('${ad.k}',this.value)">
+    </div>`).join('')}
+  </div></div>`;
 }
-init();
-setInterval(()=>{applySettings();buildLatest();buildTodayPosts();buildUpdateList();buildFeatured();buildMoreNews();updateTicker();},2000);
-</script>
-<!-- AD: MOBILE STICKY BOTTOM (sirf mobile pe dikhega) -->
-<div style="position:fixed;bottom:0;left:0;right:0;z-index:888;background:#fff;border-top:1px solid #e0e0e0;display:none;" id="mobile-ad-sticky">
-  <div style="position:relative;text-align:center;">
-    <span style="position:absolute;top:2px;right:8px;font-size:9px;color:#aaa;cursor:pointer;" onclick="document.getElementById('mobile-ad-sticky').style.display='none'">✕ Close</span>
-    <ins class="adsbygoogle"
-         style="display:block;min-height:50px;"
-         data-ad-client="ca-pub-9215124873928983"
-         data-ad-slot="5555555555"
-         data-ad-format="fluid"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-</div>
-<script>
-  // Mobile pe sticky ad show karo
-  if(window.innerWidth <= 768){
-    document.getElementById('mobile-ad-sticky').style.display='block';
-  }
-</script>
 
+function renderNotifications(){
+  return`<div class="slide-in" style="max-width:560px;">
+    <div class="panel">
+      <div class="panel-title">🔔 Push Notification Bhejo</div>
+      <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="nt" placeholder="Breaking: Kuch important..."></div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" id="nm" rows="3" placeholder="Khabar ki detail..."></textarea></div>
+      <div class="form-group"><label class="form-label">Audience</label><select class="form-input"><option>All Users</option><option>Sports Subscribers</option><option>India News</option><option>Breaking Only</option></select></div>
+      <button class="btn-primary" onclick="showToast('🔔 Notification bheja gaya! (Demo)')">🚀 Send Notification</button>
+    </div>
+  </div>`;
+}
+
+function renderSettings(){
+  const s=loadSettings();
+  return`<div class="slide-in" style="max-width:540px;">
+    <div class="panel">
+      <div class="panel-title">⚙️ Site Settings</div>
+      <div class="form-group"><label class="form-label">🏷️ Site Name</label><input class="form-input" value="${s.siteName||''}" oninput="updateS('siteName',this.value)"></div>
+      <div class="form-group"><label class="form-label">💬 Tagline</label><input class="form-input" value="${s.tagline||''}" oninput="updateS('tagline',this.value)"></div>
+      <div style="margin-top:20px;padding:14px;background:#fffbeb;border-radius:8px;border:1px solid #fcd34d;">
+        <div style="font-weight:700;color:#b45309;margin-bottom:6px;">⚡ Real-time Sync Active</div>
+        <div style="font-size:13px;color:#666;">Koi bhi change karein — News Page turant update hoti hai dono pages localStorage se connected hain.</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ACTIONS
+function startEdit(id){const a=loadArticles().find(x=>x.id===id);if(!a)return;editingId=id;form={...a};setTab('add');}
+function goBreaking(){form={breaking:true,category:"India"};setTab('add');}
+function prevImg(url){const p=document.getElementById('img-preview');if(url){p.src=url;p.style.display='block';}else p.style.display='none';form.image=url;}
+function handleImg(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{form.image=ev.target.result;const p=document.getElementById('img-preview');if(p){p.src=ev.target.result;p.style.display='block';}const fi=document.getElementById('f-image');if(fi)fi.value=ev.target.result;showToast("📸 Image upload ho gayi!");};r.readAsDataURL(f);}
+function handleMedia(e){Array.from(e.target.files).forEach(f=>{const r=new FileReader();r.onload=ev=>mediaImages.push({url:ev.target.result,name:f.name,date:new Date().toLocaleDateString()});r.readAsDataURL(f);});setTimeout(()=>{renderContent();showToast("📸 Images upload ho gayi!");},500);}
+
+function saveArticle(){
+  const title=document.getElementById('f-title')?.value||'';
+  const summary=document.getElementById('f-summary')?.value||'';
+  if(!title||!summary){showToast("❌ Title aur summary zaroori hai!","error");return;}
+  const newForm={
+    ...form,title,summary,
+    source:document.getElementById('f-source')?.value||form.source||'Admin',
+    views:document.getElementById('f-views')?.value||form.views||'0',
+    category:document.getElementById('f-category')?.value||form.category||'India',
+    category2:document.getElementById('f-category2')?.value||form.category2||'',
+    time:document.getElementById('f-time')?.value||form.time||new Date().toLocaleDateString(),
+    image:document.getElementById('f-image')?.value||form.image||'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80',
+    breaking:document.getElementById('f-breaking')?.checked||false,
+    trending:document.getElementById('f-trending')?.checked||false,
+  };
+  // CRITICAL FIX: Sirf localStorage articles use karo, DEFAULT mix mat karo
+  let arts = [];
+  try{
+    const s = localStorage.getItem("bharatnews_articles");
+    if(s){ const p=JSON.parse(s); if(p && p.length>0) arts=p; }
+  }catch{}
+  if(editingId) arts=arts.map(a=>a.id===editingId?{...newForm,id:editingId}:a);
+  else arts=[{...newForm,id:Date.now()},...arts];
+  persistA(arts);editingId=null;form={};setTab('articles');
+}
+
+function askDelete(id){deleteId=id;document.getElementById('del-overlay').classList.add('show');}
+function closeDelOverlay(){document.getElementById('del-overlay').classList.remove('show');deleteId=null;}
+function confirmDelete(){if(!deleteId)return;const arts=loadArticles().filter(a=>a.id!==deleteId);persistA(arts);closeDelOverlay();showToast("🗑️ Delete ho gaya");renderContent();}
+function updateS(k,v){const s=loadSettings();s[k]=(v==="true")?true:(v==="false")?false:v;persistS(s);}
+
+buildSidebar();renderContent();
+</script>
 </body>
 </html>

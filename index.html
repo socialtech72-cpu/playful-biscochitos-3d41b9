@@ -5,12 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NewsMunch - Leading The Way</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
-
-<!-- ================================================ -->
-<!-- GOOGLE ADSENSE - Apna Publisher ID yahan daalo   -->
-<!-- ca-pub-XXXXXXXXXX ki jagah apna ID paste karo    -->
-<!-- ================================================ -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9215124873928983" crossorigin="anonymous"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Open Sans',sans-serif;background:#f1f1f1;color:#222;font-size:14px;}
@@ -18,7 +13,6 @@ a{text-decoration:none;color:inherit;}
 img{max-width:100%;display:block;}
 ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-thumb{background:#1a56db;border-radius:3px;}
 
-/* TICKER */
 .ticker-bar{background:#111;color:#fff;display:flex;align-items:center;height:36px;overflow:hidden;}
 .ticker-fire{background:#ff4500;color:#fff;padding:0 14px;height:100%;display:flex;align-items:center;gap:6px;font-weight:700;font-size:12px;white-space:nowrap;flex-shrink:0;}
 .ticker-scroll{overflow:hidden;flex:1;display:flex;align-items:center;}
@@ -26,9 +20,7 @@ img{max-width:100%;display:block;}
 @keyframes tickerMove{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
 .ticker-right{display:flex;align-items:center;gap:16px;padding:0 16px;font-size:12px;white-space:nowrap;flex-shrink:0;color:#ccc;}
 .ticker-time{background:#1a56db;color:#fff;padding:3px 10px;border-radius:3px;font-weight:700;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-/* HEADER */
 .header{background:#fff;padding:12px 0;border-bottom:1px solid #e0e0e0;}
 .header-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
 .logo{display:flex;align-items:center;gap:10px;}
@@ -44,7 +36,6 @@ img{max-width:100%;display:block;}
 .social-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;cursor:pointer;transition:opacity 0.2s;}
 .social-icon:hover{opacity:0.8;}
 
-/* NAV */
 .nav{background:#1a56db;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;}
 .nav-left{display:flex;align-items:center;}
@@ -57,11 +48,8 @@ img{max-width:100%;display:block;}
 .nav-icon{color:#fff;font-size:18px;cursor:pointer;padding:8px;}
 .dark-toggle{background:rgba(0,0,0,0.3);border-radius:20px;width:44px;height:24px;cursor:pointer;display:flex;align-items:center;padding:2px;}
 .dark-toggle-ball{width:20px;height:20px;border-radius:50%;background:#fff;transition:transform 0.2s;}
-.subscribe-btn{background:#fff;color:#1a56db;padding:8px 16px;border-radius:4px;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:all 0.2s;}
-.subscribe-btn:hover{background:#f0f4ff;}
-.grid-icon{color:#fff;font-size:18px;cursor:pointer;}
+.subscribe-btn{background:#fff;color:#1a56db;padding:8px 16px;border-radius:4px;font-weight:700;font-size:13px;border:none;cursor:pointer;}
 
-/* TAGS */
 .tags-bar{background:#fff;border-bottom:1px solid #e8e8e8;padding:8px 0;}
 .tags-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;}
 .tags-inner::-webkit-scrollbar{display:none;}
@@ -69,30 +57,26 @@ img{max-width:100%;display:block;}
 .tag-pill{background:#f0f0f0;color:#444;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
 .tag-pill:hover{background:#1a56db;color:#fff;}
 
-/* LATEST STORY BAR */
 .latest-bar{background:#fff;border-bottom:2px solid #e8e8e8;padding:0;}
 .latest-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;height:52px;gap:0;overflow:hidden;}
-.latest-btn{background:#1a56db;color:#fff;padding:0 16px;height:100%;display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;flex-shrink:0;cursor:pointer;}
+.latest-btn{background:#1a56db;color:#fff;padding:0 16px;height:100%;display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;flex-shrink:0;}
 .latest-spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.latest-items{display:flex;align-items:center;gap:0;overflow:hidden;flex:1;}
+.latest-items{display:flex;align-items:center;overflow:hidden;flex:1;}
 .latest-item{display:flex;align-items:center;gap:10px;padding:0 16px;height:52px;border-right:1px solid #e8e8e8;cursor:pointer;transition:background 0.2s;flex-shrink:0;}
 .latest-item:hover{background:#f8f8f8;}
 .latest-thumb{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;}
 .latest-title{font-size:13px;font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
-/* MAIN CONTENT */
 .main{max-width:1200px;margin:20px auto;padding:0 16px;}
 .three-col{display:grid;grid-template-columns:1fr 1fr 260px;gap:20px;}
 
-/* SECTION HEADERS */
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #e8e8e8;}
 .section-title-badge{background:#1a56db;color:#fff;padding:6px 14px;font-weight:700;font-size:14px;border-radius:2px;}
 .section-nav-btns{display:flex;gap:4px;}
 .section-nav-btn{background:#f0f0f0;border:none;width:26px;height:26px;border-radius:3px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
 .section-nav-btn:hover{background:#1a56db;color:#fff;}
 
-/* MAIN STORY SLIDER */
 .slider-wrap{position:relative;border-radius:4px;overflow:hidden;background:#000;}
 .slider-img{width:100%;height:320px;object-fit:cover;display:block;transition:opacity 0.5s;}
 .slider-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 50%);}
@@ -101,12 +85,10 @@ img{max-width:100%;display:block;}
 .slider-cat{padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;color:#fff;}
 .slider-title{font-family:'Merriweather',serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:8px;cursor:pointer;}
 .slider-meta{display:flex;gap:12px;font-size:12px;color:rgba(255,255,255,0.75);align-items:center;}
-.slider-meta span{display:flex;align-items:center;gap:4px;}
 .slider-dots{position:absolute;bottom:16px;right:20px;display:flex;gap:6px;}
 .slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.2s;}
 .slider-dot.active{background:#fff;width:24px;border-radius:5px;}
 
-/* TODAY POST */
 .today-card{border-radius:4px;overflow:hidden;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.08);margin-bottom:12px;cursor:pointer;transition:all 0.2s;}
 .today-card:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,0.12);}
 .today-img-wrap{position:relative;}
@@ -117,7 +99,6 @@ img{max-width:100%;display:block;}
 .today-title{font-family:'Merriweather',serif;font-size:14px;font-weight:700;line-height:1.4;margin-bottom:6px;}
 .today-meta{font-size:11px;color:#888;display:flex;align-items:center;gap:6px;}
 
-/* TODAY UPDATE SIDEBAR */
 .update-tabs{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #e8e8e8;}
 .update-tab{padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;color:#666;transition:all 0.2s;display:flex;align-items:center;gap:5px;}
 .update-tab.active{color:#1a56db;border-bottom-color:#1a56db;}
@@ -129,9 +110,8 @@ img{max-width:100%;display:block;}
 .update-cats{display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap;}
 .update-cat{padding:2px 6px;border-radius:2px;font-size:10px;font-weight:700;color:#fff;}
 .update-title{font-size:12px;font-weight:700;line-height:1.4;color:#222;}
-.update-date{font-size:11px;color:#888;margin-top:3px;display:flex;align-items:center;gap:4px;}
+.update-date{font-size:11px;color:#888;margin-top:3px;}
 
-/* FEATURED STORY */
 .featured-section{background:#fff;padding:20px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:20px;}
 .featured-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
 .featured-card{cursor:pointer;transition:all 0.2s;}
@@ -146,7 +126,6 @@ img{max-width:100%;display:block;}
 .feat-meta{font-size:11px;color:#888;display:flex;align-items:center;gap:6px;}
 .feat-avatar{width:16px;height:16px;border-radius:50%;background:#1a56db;display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#fff;}
 
-/* FOOTER */
 footer{background:#111;color:#aaa;margin-top:30px;}
 .footer-top{background:#1a56db;padding:16px 0;}
 .footer-top-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
@@ -154,7 +133,6 @@ footer{background:#111;color:#aaa;margin-top:30px;}
 .footer-nl-label{color:#fff;font-weight:700;font-size:15px;}
 .footer-nl-input{padding:10px 16px;border-radius:4px;border:none;font-size:14px;outline:none;width:250px;font-family:inherit;}
 .footer-nl-btn{background:#111;color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit;}
-.footer-social{display:flex;gap:8px;}
 .footer-inner{max-width:1200px;margin:0 auto;padding:40px 16px 20px;}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px;}
 .footer-logo-text{font-size:22px;font-weight:800;color:#fff;margin-bottom:10px;}
@@ -165,7 +143,6 @@ footer{background:#111;color:#aaa;margin-top:30px;}
 .footer-link::before{content:"›";color:#1a56db;}
 .footer-bottom{border-top:1px solid #333;padding-top:20px;display:flex;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:10px;}
 
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
 .modal-box{background:#fff;border-radius:8px;max-width:750px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -178,21 +155,13 @@ footer{background:#111;color:#aaa;margin-top:30px;}
 .modal-text{font-size:15px;line-height:1.8;color:#333;}
 .modal-close-btn{position:absolute;top:16px;right:16px;background:rgba(0,0,0,0.6);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
 
-/* AD BOXES */
 .ad-box{background:#f9f9f9;border:1px dashed #ccc;border-radius:6px;text-align:center;overflow:hidden;position:relative;}
 .ad-box-label{position:absolute;top:4px;left:50%;transform:translateX(-50%);font-size:9px;color:#aaa;letter-spacing:1px;text-transform:uppercase;background:#f9f9f9;padding:0 6px;z-index:1;}
 .ad-leaderboard{width:100%;min-height:90px;margin:10px 0;}
 .ad-rectangle{width:100%;min-height:250px;}
-.ad-mobile{width:100%;min-height:50px;}
 .adsbygoogle{display:block;}
-.bg-blue{background:#1a56db;}
-.bg-green{background:#0e9f6e;}
-.bg-orange{background:#ff6b35;}
-.bg-red{background:#e02424;}
-.bg-purple{background:#7e3af2;}
-.bg-teal{background:#0694a2;}
-.bg-yellow{background:#c27803;} 
-.bg-pink{background:#d61f69;}
+
+.bg-blue{background:#1a56db;}.bg-green{background:#0e9f6e;}.bg-orange{background:#ff6b35;}.bg-red{background:#e02424;}.bg-purple{background:#7e3af2;}.bg-teal{background:#0694a2;}.bg-yellow{background:#c27803;}.bg-pink{background:#d61f69;}
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeIn 0.4s ease;}
@@ -214,10 +183,9 @@ footer{background:#111;color:#aaa;margin-top:30px;}
 </head>
 <body>
 
-<!-- TICKER BAR -->
 <div class="ticker-bar">
   <div class="ticker-fire">🔥 Trending News:</div>
-  <div class="ticker-scroll"><span class="ticker-text" id="ticker-text">Navigating the Landscape of Cryptocurrency Trends | IPL 2025 Finals Tonight | Sensex crosses 80,000 mark | ISRO announces Chandrayaan-4 | Delhi rains cause traffic jams | Virat Kohli returns to Test cricket</span></div>
+  <div class="ticker-scroll"><span class="ticker-text" id="ticker-text">Loading...</span></div>
   <div class="ticker-right">
     <span>📅 <span id="ticker-date"></span></span>
     <span class="ticker-time" id="ticker-clock"></span>
@@ -225,7 +193,6 @@ footer{background:#111;color:#aaa;margin-top:30px;}
   </div>
 </div>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-inner">
     <div class="logo">
@@ -248,12 +215,11 @@ footer{background:#111;color:#aaa;margin-top:30px;}
   </div>
 </div>
 
-<!-- NAV -->
 <div class="nav">
   <div class="nav-inner">
     <div class="nav-left">
       <div class="home-btn">🏠</div>
-      <div class="nav-items" id="nav-items">
+      <div class="nav-items">
         <div class="nav-item active">Newsbeat <span class="nav-arrow">▾</span></div>
         <div class="nav-item" onclick="filterCat('World')">Blog</div>
         <div class="nav-item" onclick="filterCat('Sports')">Sports</div>
@@ -269,29 +235,21 @@ footer{background:#111;color:#aaa;margin-top:30px;}
       <span class="nav-icon">🔔</span>
       <div class="dark-toggle"><div class="dark-toggle-ball"></div></div>
       <button class="subscribe-btn">Subscribe</button>
-      <span class="grid-icon">⊞</span>
+      <span style="color:#fff;font-size:18px;cursor:pointer;">⊞</span>
     </div>
   </div>
 </div>
 
-<!-- AD: HEADER LEADERBOARD 728x90 -->
 <div style="background:#fff;padding:10px 0;border-bottom:1px solid #e8e8e8;">
   <div style="max-width:1200px;margin:0 auto;padding:0 16px;">
     <div class="ad-box ad-leaderboard">
       <span class="ad-box-label">Advertisement</span>
-      <!-- AdSense Header Banner -->
-      <ins class="adsbygoogle ad-leaderboard"
-           style="display:block;min-height:90px;"
-           data-ad-client="ca-pub-XXXXXXXXXX"
-           data-ad-slot="1111111111"
-           data-ad-format="horizontal"
-           data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle ad-leaderboard" style="display:block;min-height:90px;" data-ad-client="ca-pub-9215124873928983" data-ad-slot="1111111111" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
   </div>
 </div>
 
-<!-- TAGS BAR -->
 <div class="tags-bar">
   <div class="tags-inner">
     <span class="tags-label"># Top Tags</span>
@@ -308,7 +266,6 @@ footer{background:#111;color:#aaa;margin-top:30px;}
   </div>
 </div>
 
-<!-- LATEST STORY BAR -->
 <div class="latest-bar">
   <div class="latest-inner">
     <div class="latest-btn"><div class="latest-spinner"></div>Latest Story</div>
@@ -316,11 +273,8 @@ footer{background:#111;color:#aaa;margin-top:30px;}
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
   <div class="three-col">
-
-    <!-- MAIN STORY -->
     <div>
       <div class="section-header">
         <div class="section-title-badge">Main Story</div>
@@ -346,7 +300,6 @@ footer{background:#111;color:#aaa;margin-top:30px;}
       </div>
     </div>
 
-    <!-- TODAY POST -->
     <div>
       <div class="section-header">
         <div class="section-title-badge">Today Post</div>
@@ -354,7 +307,6 @@ footer{background:#111;color:#aaa;margin-top:30px;}
       <div id="today-posts"></div>
     </div>
 
-    <!-- TODAY UPDATE SIDEBAR -->
     <div>
       <div class="section-header">
         <div class="section-title-badge">Today Update</div>
@@ -365,23 +317,14 @@ footer{background:#111;color:#aaa;margin-top:30px;}
         <div class="update-tab" onclick="setUpdateTab('gaming',this)">⚫ Gaming</div>
       </div>
       <div id="update-list"></div>
-
-      <!-- AD: SIDEBAR RECTANGLE 300x250 -->
       <div class="ad-box ad-rectangle" style="margin-top:16px;">
         <span class="ad-box-label">Advertisement</span>
-        <ins class="adsbygoogle"
-             style="display:block;min-height:250px;"
-             data-ad-client="ca-pub-XXXXXXXXXX"
-             data-ad-slot="2222222222"
-             data-ad-format="rectangle"
-             data-full-width-responsive="false"></ins>
+        <ins class="adsbygoogle" style="display:block;min-height:250px;" data-ad-client="ca-pub-9215124873928983" data-ad-slot="2222222222" data-ad-format="rectangle" data-full-width-responsive="false"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
     </div>
-
   </div>
 
-  <!-- FEATURED STORY -->
   <div class="featured-section fade-in">
     <div class="section-header">
       <div class="section-title-badge">Featured Story</div>
@@ -393,40 +336,25 @@ footer{background:#111;color:#aaa;margin-top:30px;}
     <div class="featured-grid" id="featured-grid"></div>
   </div>
 
-  <!-- AD: IN-CONTENT 728x90 -->
   <div class="ad-box ad-leaderboard" style="margin-bottom:20px;">
     <span class="ad-box-label">Advertisement</span>
-    <ins class="adsbygoogle"
-         style="display:block;min-height:90px;"
-         data-ad-client="ca-pub-XXXXXXXXXX"
-         data-ad-slot="3333333333"
-         data-ad-format="horizontal"
-         data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:block;min-height:90px;" data-ad-client="ca-pub-9215124873928983" data-ad-slot="3333333333" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
-  <!-- MORE NEWS -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;" id="more-news-grid"></div>
-
 </div>
 
-<!-- AD: FOOTER LEADERBOARD 728x90 -->
 <div style="background:#fff;padding:12px 0;border-top:1px solid #e8e8e8;">
   <div style="max-width:1200px;margin:0 auto;padding:0 16px;">
     <div class="ad-box ad-leaderboard">
       <span class="ad-box-label">Advertisement</span>
-      <ins class="adsbygoogle"
-           style="display:block;min-height:90px;"
-           data-ad-client="ca-pub-XXXXXXXXXX"
-           data-ad-slot="4444444444"
-           data-ad-format="horizontal"
-           data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block;min-height:90px;" data-ad-client="ca-pub-9215124873928983" data-ad-slot="4444444444" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-top-inner">
@@ -435,7 +363,7 @@ footer{background:#111;color:#aaa;margin-top:30px;}
         <input class="footer-nl-input" placeholder="Enter your email address...">
         <button class="footer-nl-btn">Subscribe</button>
       </div>
-      <div class="footer-social">
+      <div class="social-icons">
         <div class="social-icon" style="background:#1877f2">f</div>
         <div class="social-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743)">📷</div>
         <div class="social-icon" style="background:#111">𝕏</div>
@@ -447,7 +375,7 @@ footer{background:#111;color:#aaa;margin-top:30px;}
     <div class="footer-grid">
       <div>
         <div class="footer-logo-text" id="footer-name">NewsMunch</div>
-        <p class="footer-desc">Bharat ki sabse tez aur vishwasniya khabar ka source. Hum 24/7 aapko latest news dete hain. Hamari team din-raat kaam karti hai taaki aap kabhi bhi koi khabar miss na karein.</p>
+        <p class="footer-desc">Bharat ki sabse tez aur vishwasniya khabar ka source. Hum 24/7 aapko latest news dete hain.</p>
         <div style="display:flex;gap:8px;">
           <div class="social-icon" style="background:#1877f2;width:32px;height:32px;font-size:13px;">f</div>
           <div class="social-icon" style="background:#1da1f2;width:32px;height:32px;font-size:13px;">🐦</div>
@@ -487,7 +415,6 @@ footer{background:#111;color:#aaa;margin-top:30px;}
   </div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal-box" style="position:relative;">
     <img class="modal-img" id="modal-img" src="" alt="">
@@ -501,26 +428,34 @@ footer{background:#111;color:#aaa;margin-top:30px;}
         <span>👁 <span id="modal-views"></span> views</span>
       </div>
       <p class="modal-text" id="modal-text"></p>
-      <p class="modal-text" style="margin-top:14px;color:#555;">Yeh khabar NewsMunch ke reporters ne file ki hai. Adhik jaankari ke liye official sources check karein. Latest updates ke liye hamare saath bane rahein aur notifications enable karein.</p>
+      <p class="modal-text" style="margin-top:14px;color:#555;">Yeh khabar NewsMunch ke reporters ne file ki hai. Adhik jaankari ke liye official sources check karein.</p>
     </div>
   </div>
 </div>
 
 <script>
-// ===== DATA =====
+// =====================================================
+// KEY FIX: Har section ko ALAG articles milenge
+// Slider  → index 0,1,2,3,4   (trending/breaking)
+// Today Post → index 1,2       (slider se ALAG)
+// Update Sidebar → index 3,4,5,6,7  (dono se ALAG)
+// Featured → index 5 se aage   (sab se ALAG)
+// More News → category wise, unique articles
+// =====================================================
+
 const DEFAULT_ARTICLES = [
   {id:1,title:"The Landscape of Cryptocurrency Trends in 2025",category:"Business",category2:"Technology",summary:"Cryptocurrency market is seeing major shifts in 2025. Bitcoin has crossed new highs while new altcoins are emerging as strong contenders in the digital currency space.",image:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",time:"January 27, 2025",source:"Admin",views:"2.4M",trending:true,breaking:true},
   {id:2,title:"The Power of Wind Energy and Renewable Future",category:"Technology",category2:"Economy",summary:"Wind energy is rapidly becoming one of the most cost-effective sources of electricity. New turbine technologies are making it possible to generate power even in low-wind areas.",image:"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"1.8M",trending:true,breaking:false},
   {id:3,title:"Golden Gate's Timeless Majesty and Architecture",category:"Economy",category2:"Western",summary:"The Golden Gate Bridge continues to inspire millions of visitors every year. Recent restoration works have preserved its iconic red-orange color and structural integrity.",image:"https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"890K",trending:false,breaking:false},
   {id:4,title:"AI is the Best Learning Experience for Students",category:"Technology",category2:"Newness",summary:"Artificial Intelligence is revolutionizing education. From personalized learning paths to instant feedback, AI tools are helping students achieve better results in less time.",image:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"3.2M",trending:true,breaking:false},
   {id:5,title:"Harnessing the Power of Wind Energy Globally",category:"Economy",category2:"Technology",summary:"Global investment in wind energy reached record levels last year. Countries across Asia, Europe and Americas are ramping up their wind power capacity.",image:"https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"1.1M",trending:false,breaking:false},
-  {id:6,title:"Ultimate Sports Ground Experience in Modern Stadiums",category:"Sports",category2:"Economy",summary:"Modern sports stadiums are being designed with fan experience at the forefront. New technologies like AR displays, smart seating and instant replay screens are changing how we watch sports.",image:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"756K",trending:false,breaking:false},
-  {id:7,title:"All Future of Work Like Remote Collaboration Tools",category:"Technology",category2:"Economy",summary:"The future of work is hybrid. Companies are investing heavily in remote collaboration tools that make virtual teams as productive as in-person ones.",image:"https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"445K",trending:false,breaking:false},
+  {id:6,title:"Ultimate Sports Ground Experience in Modern Stadiums",category:"Sports",category2:"Economy",summary:"Modern sports stadiums are being designed with fan experience at the forefront. New technologies like AR displays and smart seating are changing how we watch sports.",image:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"756K",trending:false,breaking:false},
+  {id:7,title:"Future of Work: Remote Collaboration Tools Rise",category:"Technology",category2:"Economy",summary:"The future of work is hybrid. Companies are investing heavily in remote collaboration tools that make virtual teams as productive as in-person ones.",image:"https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"445K",trending:false,breaking:false},
   {id:8,title:"Rise of Competitive Video Gaming Esports Scene",category:"Technology",category2:"Western",summary:"Esports is now a billion-dollar industry. Professional gaming leagues are filling arenas and attracting massive online viewership across the globe.",image:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",time:"January 27, 2025",source:"Desert",views:"2.1M",trending:false,breaking:false},
   {id:9,title:"India's Space Program Eyes Mars Mission by 2030",category:"Science",category2:"Technology",summary:"ISRO has unveiled ambitious plans for a Mars mission by 2030. The program includes a series of preparatory missions and international collaborations.",image:"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=80",time:"January 27, 2025",source:"ScienceDesk",views:"1.9M",trending:true,breaking:false},
   {id:10,title:"Mumbai Indians Win IPL 2025 in Thrilling Final",category:"Sports",category2:"Economy",summary:"Mumbai Indians clinched the IPL 2025 title in a nail-biting final last night. Rohit Sharma's brilliant century guided the team to a famous victory.",image:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80",time:"January 27, 2025",source:"SportDesk",views:"9.2M",trending:true,breaking:true},
-  {id:11,title:"Health Revolution: Yoga Goes Global with WHO Backing",category:"Health",category2:"Newness",summary:"World Health Organization has officially endorsed yoga and meditation as key components of global mental health strategy. Nations are now integrating these practices into public health systems.",image:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",time:"January 27, 2025",source:"HealthDesk",views:"678K",trending:false,breaking:false},
-  {id:12,title:"Electric Vehicle Revolution Sweeps Across India",category:"Technology",category2:"Economy",summary:"India's EV market has seen 300% growth in the past year. Government subsidies and new affordable models from Tata and Mahindra are driving mass adoption.",image:"https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80",time:"January 27, 2025",source:"AutoDesk",views:"1.4M",trending:false,breaking:false},
+  {id:11,title:"Health Revolution: Yoga Goes Global with WHO Backing",category:"Health",category2:"Newness",summary:"World Health Organization has officially endorsed yoga and meditation as key components of global mental health strategy.",image:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",time:"January 27, 2025",source:"HealthDesk",views:"678K",trending:false,breaking:false},
+  {id:12,title:"Electric Vehicle Revolution Sweeps Across India",category:"Technology",category2:"Economy",summary:"India's EV market has seen 300% growth in the past year. Government subsidies and new affordable models are driving mass adoption.",image:"https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80",time:"January 27, 2025",source:"AutoDesk",views:"1.4M",trending:false,breaking:false},
 ];
 
 const CAT_COLORS = {
@@ -528,19 +463,27 @@ const CAT_COLORS = {
   "Western":"bg-teal","Science":"bg-purple","Health":"bg-pink","Newness":"bg-blue",
   "Entertainment":"bg-yellow","India":"bg-red","World":"bg-teal"
 };
-
 function getCatClass(cat){ return CAT_COLORS[cat]||"bg-blue"; }
 
 function loadArticles(){
-  try{const s=localStorage.getItem("bharatnews_articles");if(s)return JSON.parse(s);}catch{}
+  // Admin se jo bhi articles hain SIRF wahi dikhao
+  // Default articles tab dikhenge jab localStorage bilkul empty ho
+  try{
+    const s=localStorage.getItem("bharatnews_articles");
+    if(s){
+      const parsed = JSON.parse(s);
+      if(parsed && parsed.length > 0) return parsed;
+    }
+  }catch{}
+  // Pehli baar site open hone par placeholder dikhao
   return DEFAULT_ARTICLES;
 }
 function loadSettings(){
   try{const s=localStorage.getItem("bharatnews_settings");if(s)return JSON.parse(s);}catch{}
-  return {siteName:"NewsMunch",tagline:"Leading The Way",primaryColor:"#1a56db"};
+  return {siteName:"NewsMunch",tagline:"Leading The Way"};
 }
 
-// ===== CLOCK =====
+// CLOCK
 function updateClock(){
   const now=new Date();
   document.getElementById('ticker-clock').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
@@ -548,15 +491,18 @@ function updateClock(){
 }
 setInterval(updateClock,1000); updateClock();
 
-// ===== SLIDER =====
+// =====================================================
+// SLIDER — sirf trending/breaking articles use karo
+// Index tracked: sliderUsedIds
+// =====================================================
 let sliderIdx = 0;
 let sliderArts = [];
 let sliderTimer;
 
-function buildSlider(){
-  const arts = loadArticles();
-  sliderArts = arts.filter(a=>a.trending||a.breaking).slice(0,6);
-  if(!sliderArts.length) sliderArts = arts.slice(0,5);
+function buildSlider(allArts){
+  // Slider ke liye sirf trending ya breaking articles
+  sliderArts = allArts.filter(a=>a.trending||a.breaking).slice(0,5);
+  if(sliderArts.length === 0) sliderArts = allArts.slice(0,3);
   renderSlide();
   buildDots();
   clearInterval(sliderTimer);
@@ -575,31 +521,37 @@ function renderSlide(){
   const cc=document.getElementById('slider-cats');
   cc.innerHTML=`<span class="slider-cat ${getCatClass(a.category)}">${a.category}</span>${a.category2?`<span class="slider-cat ${getCatClass(a.category2)}">${a.category2}</span>`:''}`;
 }
-
 function buildDots(){
   const d=document.getElementById('slider-dots');
   d.innerHTML=sliderArts.map((_,i)=>`<div class="slider-dot ${i===sliderIdx?'active':''}" onclick="goSlide(${i})"></div>`).join('');
 }
-
 function goSlide(i){sliderIdx=i;renderSlide();buildDots();}
 function prevSlide(){sliderIdx=(sliderIdx-1+sliderArts.length)%sliderArts.length;renderSlide();buildDots();}
 function nextSlide(){sliderIdx=(sliderIdx+1)%sliderArts.length;renderSlide();buildDots();}
 function openSliderModal(){if(sliderArts[sliderIdx])openModal(sliderArts[sliderIdx].id);}
 
-// ===== LATEST BAR =====
-function buildLatest(){
-  const arts=loadArticles().slice(0,4);
-  document.getElementById('latest-items').innerHTML=arts.map(a=>`
+// =====================================================
+// LATEST BAR — sabse latest 4 articles (slider se alag IDs)
+// =====================================================
+function buildLatest(allArts){
+  const sliderIds = new Set(sliderArts.map(a=>a.id));
+  // latest bar mein slider se alag articles dikhao
+  const latestArts = allArts.filter(a=>!sliderIds.has(a.id)).slice(0,4);
+  document.getElementById('latest-items').innerHTML = latestArts.map(a=>`
     <div class="latest-item" onclick="openModal(${a.id})">
       <img class="latest-thumb" src="${a.image}" alt="">
       <span class="latest-title">${a.title}</span>
     </div>`).join('');
 }
 
-// ===== TODAY POSTS =====
-function buildTodayPosts(){
-  const arts=loadArticles().slice(1,3);
-  document.getElementById('today-posts').innerHTML=arts.map(a=>`
+// =====================================================
+// TODAY POSTS — 2 articles, slider se BILKUL ALAG
+// =====================================================
+function buildTodayPosts(allArts){
+  const sliderIds = new Set(sliderArts.map(a=>a.id));
+  // slider mein jo nahi hain unme se pehle 2 lo
+  const todayArts = allArts.filter(a=>!sliderIds.has(a.id)).slice(0,2);
+  document.getElementById('today-posts').innerHTML = todayArts.map(a=>`
     <div class="today-card" onclick="openModal(${a.id})">
       <div class="today-img-wrap">
         <img class="today-img" src="${a.image}" alt="">
@@ -615,18 +567,24 @@ function buildTodayPosts(){
     </div>`).join('');
 }
 
-// ===== UPDATE LIST =====
+// =====================================================
+// UPDATE SIDEBAR — alag 5 articles (slider + today se alag)
+// =====================================================
 let updateCatFilter = 'popular';
 function setUpdateTab(cat, el){
   updateCatFilter=cat;
   document.querySelectorAll('.update-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  buildUpdateList();
+  buildUpdateList(loadArticles());
 }
 
-function buildUpdateList(){
-  const arts=loadArticles().slice(0,5);
-  document.getElementById('update-list').innerHTML=arts.map(a=>`
+function buildUpdateList(allArts){
+  const sliderIds = new Set(sliderArts.map(a=>a.id));
+  const todayIds = new Set(allArts.filter(a=>!sliderIds.has(a.id)).slice(0,2).map(a=>a.id));
+  const usedIds = new Set([...sliderIds,...todayIds]);
+  // Sidebar mein slider + today se alag articles
+  const sidebarArts = allArts.filter(a=>!usedIds.has(a.id)).slice(0,5);
+  document.getElementById('update-list').innerHTML = sidebarArts.map(a=>`
     <div class="update-item" onclick="openModal(${a.id})">
       <img class="update-thumb" src="${a.image}" alt="">
       <div class="update-body">
@@ -640,10 +598,19 @@ function buildUpdateList(){
     </div>`).join('');
 }
 
-// ===== FEATURED GRID =====
-function buildFeatured(){
-  const arts=loadArticles().slice(0,10);
-  document.getElementById('featured-grid').innerHTML=arts.map(a=>`
+// =====================================================
+// FEATURED GRID — baaki sab articles (already used exclude)
+// =====================================================
+function buildFeatured(allArts){
+  const sliderIds = new Set(sliderArts.map(a=>a.id));
+  const todayIds = new Set(allArts.filter(a=>!sliderIds.has(a.id)).slice(0,2).map(a=>a.id));
+  const sidebarIds = new Set(allArts.filter(a=>!sliderIds.has(a.id)&&!todayIds.has(a.id)).slice(0,5).map(a=>a.id));
+  const usedIds = new Set([...sliderIds,...todayIds,...sidebarIds]);
+  // Featured mein sab se alag articles
+  const featArts = allArts.filter(a=>!usedIds.has(a.id)).slice(0,10);
+  // Agar kam articles hain to sabse purane wale bhi use kar sakte hain
+  const finalFeat = featArts.length >= 5 ? featArts : allArts.slice(0,10);
+  document.getElementById('featured-grid').innerHTML = finalFeat.slice(0,10).map(a=>`
     <div class="featured-card" onclick="openModal(${a.id})">
       <div class="feat-img-wrap">
         <img class="feat-img" src="${a.image}" alt="">
@@ -654,17 +621,18 @@ function buildFeatured(){
         </div>
       </div>
       <div class="feat-title">${a.title}</div>
-      <div class="feat-meta"><span class="feat-avatar">D</span> ${a.source||'Desert'} • 📅 ${a.time}</div>
+      <div class="feat-meta"><span class="feat-avatar">D</span> ${a.source||'Desktop'} • 📅 ${a.time}</div>
     </div>`).join('');
 }
 
-// ===== MORE NEWS =====
-function buildMoreNews(){
-  const arts=loadArticles();
-  const cats=[...new Set(arts.map(a=>a.category))].slice(0,4);
+// =====================================================
+// MORE NEWS — category ke hisaab se unique articles
+// =====================================================
+function buildMoreNews(allArts){
+  const cats=[...new Set(allArts.map(a=>a.category))].slice(0,4);
   const g=document.getElementById('more-news-grid');
   g.innerHTML=cats.map(cat=>{
-    const catArts=arts.filter(a=>a.category===cat).slice(0,3);
+    const catArts=allArts.filter(a=>a.category===cat).slice(0,3);
     return `<div style="background:#fff;border-radius:4px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
       <div class="section-header"><div class="section-title-badge">${cat}</div></div>
       ${catArts.map(a=>`<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;cursor:pointer;" onclick="openModal(${a.id})">
@@ -678,21 +646,16 @@ function buildMoreNews(){
   }).join('');
 }
 
-// ===== FILTER =====
+// FILTER
 function filterCat(cat){
   const arts=loadArticles().filter(a=>a.category===cat||a.category2===cat);
-  if(arts.length>0){
-    sliderArts=arts;sliderIdx=0;renderSlide();buildDots();
-  }
+  if(arts.length>0){sliderArts=arts;sliderIdx=0;renderSlide();buildDots();}
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
 }
 
-// ===== MODAL =====
-let currentArticles=[];
+// MODAL
 function openModal(id){
-  const arts=loadArticles();
-  currentArticles=arts;
-  const a=arts.find(x=>x.id===id);
+  const a=loadArticles().find(x=>x.id===id);
   if(!a)return;
   document.getElementById('modal-img').src=a.image;
   document.getElementById('modal-cats').innerHTML=`<span class="modal-cat ${getCatClass(a.category)}">${a.category}</span>${a.category2?`<span class="modal-cat ${getCatClass(a.category2)}">${a.category2}</span>`:''}`;
@@ -706,7 +669,7 @@ function openModal(id){
 function closeModalBtn(){document.getElementById('modal-overlay').classList.remove('show');document.body.style.overflow='';}
 function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeModalBtn();}
 
-// ===== SETTINGS =====
+// SETTINGS
 function applySettings(){
   const s=loadSettings();
   document.getElementById('site-name').textContent=s.siteName||'NewsMunch';
@@ -715,46 +678,49 @@ function applySettings(){
   document.getElementById('footer-copy').textContent='© 2025 '+(s.siteName||'NewsMunch')+'. All rights reserved.';
 }
 
-// ===== TICKER UPDATE =====
-function updateTicker(){
-  const arts=loadArticles();
-  const t=arts.map(a=>a.title).join(' | ');
-  document.getElementById('ticker-text').textContent=t;
+// TICKER
+function updateTicker(allArts){
+  document.getElementById('ticker-text').textContent=allArts.map(a=>a.title).join(' | ');
 }
 
-// ===== INIT =====
+// =====================================================
+// MAIN INIT — sab ek saath, sahi order mein
+// =====================================================
 function init(){
   applySettings();
-  buildSlider();
-  buildLatest();
-  buildTodayPosts();
-  buildUpdateList();
-  buildFeatured();
-  buildMoreNews();
-  updateTicker();
+  const allArts = loadArticles();
+  buildSlider(allArts);       // Step 1: Slider pehle banao (IDs fix ho jayenge)
+  buildLatest(allArts);       // Step 2: Latest bar
+  buildTodayPosts(allArts);   // Step 3: Today posts (slider IDs avoid)
+  buildUpdateList(allArts);   // Step 4: Sidebar (slider+today avoid)
+  buildFeatured(allArts);     // Step 5: Featured (sab se alag)
+  buildMoreNews(allArts);     // Step 6: More news by category
+  updateTicker(allArts);
 }
+
 init();
-setInterval(()=>{applySettings();buildLatest();buildTodayPosts();buildUpdateList();buildFeatured();buildMoreNews();updateTicker();},2000);
+
+// Har 2 sec mein refresh (admin changes pick karne ke liye)
+setInterval(()=>{
+  applySettings();
+  const allArts = loadArticles();
+  buildLatest(allArts);
+  buildTodayPosts(allArts);
+  buildUpdateList(allArts);
+  buildFeatured(allArts);
+  buildMoreNews(allArts);
+  updateTicker(allArts);
+},2000);
 </script>
-<!-- AD: MOBILE STICKY BOTTOM (sirf mobile pe dikhega) -->
+
 <div style="position:fixed;bottom:0;left:0;right:0;z-index:888;background:#fff;border-top:1px solid #e0e0e0;display:none;" id="mobile-ad-sticky">
   <div style="position:relative;text-align:center;">
     <span style="position:absolute;top:2px;right:8px;font-size:9px;color:#aaa;cursor:pointer;" onclick="document.getElementById('mobile-ad-sticky').style.display='none'">✕ Close</span>
-    <ins class="adsbygoogle"
-         style="display:block;min-height:50px;"
-         data-ad-client="ca-pub-XXXXXXXXXX"
-         data-ad-slot="5555555555"
-         data-ad-format="fluid"
-         data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:block;min-height:50px;" data-ad-client="ca-pub-9215124873928983" data-ad-slot="5555555555" data-ad-format="fluid" data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 </div>
-<script>
-  // Mobile pe sticky ad show karo
-  if(window.innerWidth <= 768){
-    document.getElementById('mobile-ad-sticky').style.display='block';
-  }
-</script>
+<script>if(window.innerWidth<=768)document.getElementById('mobile-ad-sticky').style.display='block';</script>
 
 </body>
 </html>
